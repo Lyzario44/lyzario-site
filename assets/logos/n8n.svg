@@ -1,0 +1,17 @@
+<svg width="150" height="40" viewBox="0 0 150 40" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(0,6)">
+    <!-- Liaisons -->
+    <path d="M14 8 C18 8, 22 10, 26 14" stroke="#F36F45" stroke-width="3" fill="none" stroke-linecap="round"></path>
+    <path d="M14 20 C18 20, 22 18, 26 14" stroke="#F36F45" stroke-width="3" fill="none" stroke-linecap="round"></path>
+
+    <!-- Noeuds -->
+    <circle cx="10" cy="8" r="6" fill="#EA4B71"></circle>
+    <circle cx="10" cy="20" r="6" fill="#FF8A3D"></circle>
+    <circle cx="30" cy="14" r="6" fill="#EA4B71"></circle>
+  </g>
+
+  <!-- Texte -->
+  <text x="46" y="27" fill="#FFFFFF" font-family="Inter, Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="-0.4">
+    n8n
+  </text>
+</svg>

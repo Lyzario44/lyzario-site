@@ -1,0 +1,33 @@
+<svg width="170" height="40" viewBox="0 0 170 40" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Symbole Make -->
+  <g transform="translate(0,5)">
+    <rect x="0" y="0" width="12" height="28" rx="2" fill="url(#g1)"></rect>
+    <rect x="18" y="0" width="12" height="28" rx="2" fill="url(#g2)"></rect>
+    <rect x="36" y="0" width="12" height="28" rx="2" fill="url(#g3)"></rect>
+  </g>
+
+  <!-- Texte -->
+  <text x="60" y="27" fill="#FFFFFF" font-family="Inter, Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="-0.5">
+    make
+  </text>
+
+  <!-- Dégradés -->
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="0" y2="28">
+      <stop offset="0%" stop-color="#FF2FE6"></stop>
+      <stop offset="100%" stop-color="#B100FF"></stop>
+    </linearGradient>
+
+    <linearGradient id="g2" x1="0" y1="0" x2="0" y2="28">
+      <stop offset="0%" stop-color="#B86CFF"></stop>
+      <stop offset="100%" stop-color="#7B2DFF"></stop>
+    </linearGradient>
+
+    <linearGradient id="g3" x1="0" y1="0" x2="0" y2="28">
+      <stop offset="0%" stop-color="#8A2EFF"></stop>
+      <stop offset="100%" stop-color="#5C00D6"></stop>
+    </linearGradient>
+  </defs>
+
+</svg>
