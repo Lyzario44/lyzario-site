@@ -129,9 +129,14 @@
       100% { background-position: -200% 0; }
     }
 
-    /* ========== HEADER & MENU : en haut = 1ère brique du bloc, au scroll = fixe ========== */
+    /* ========== HEADER & MENU (sticky fiable) ========== */
     .header {
-      position: relative;
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1024px, 90%);
+      z-index: 100;
       padding: 0.55rem 0.9rem;
       min-height: 0;
       background: rgba(6, 6, 12, 0.4);
@@ -144,14 +149,6 @@
         0 4px 20px rgba(139, 92, 246, 0.18);
       transition: background var(--transition-nav), border-color var(--transition-nav), box-shadow var(--transition-nav);
     }
-    .header.is-fixed {
-      position: fixed;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(1024px, 90%);
-      z-index: 100;
-    }
     .header.scrolled {
       background: rgba(6, 6, 12, 0.22);
       backdrop-filter: blur(14px);
@@ -161,9 +158,9 @@
         0 0 0 1px rgba(139, 92, 246, 0.15),
         0 4px 24px rgba(139, 92, 246, 0.25);
     }
-    body.menu-fixed .page-frame > main { padding-top: 7.5rem; }
+    .page-frame { margin-top: 7.5rem; }
     @media (max-width: 740px) {
-      body.menu-fixed .page-frame > main { padding-top: 5.5rem; }
+      .page-frame { margin-top: 5.5rem; }
     }
     /* ========== Animations (scroll reveal) ========== */
     .reveal {
@@ -247,8 +244,7 @@
       .back-to-top { right: 12px; bottom: 12px; width: 42px; height: 42px; }
     }
     @media (max-width: 740px) {
-      .header { border-radius: 12px 12px 0 0; }
-      .header.is-fixed { width: calc(100% - 1.5rem); }
+      .header { border-radius: 12px 12px 0 0; width: calc(100% - 1.5rem); }
     }
 
     /* Cadre centré : au premier plan par rapport au fond (contraste, relief) */
@@ -260,7 +256,7 @@
       margin: 1.25rem auto 0;
       min-height: calc(100vh - 3rem);
       border: 1px solid rgba(139, 92, 246, 0.55);
-      border-radius: 0 0 16px 16px;
+      border-radius: 16px;
       background: rgba(255, 255, 255, 0.03);
       backdrop-filter: blur(2px);
       -webkit-backdrop-filter: blur(2px);
@@ -1653,39 +1649,39 @@
   <div class="bg-gradient-orb bg-gradient-orb-2" aria-hidden="true"></div>
   <div class="flow-line" aria-hidden="true"></div>
 
-  <div class="page-frame">
-    <header class="header" id="header" role="banner">
-      <div class="header-inner">
-        <a href="#" class="logo"><img src="./assets/logo.png" alt="Lyzario" class="logo-img"></a>
+  <header class="header" id="header" role="banner">
+    <div class="header-inner">
+      <a href="#" class="logo"><img src="./assets/logo.png" alt="Lyzario" class="logo-img"></a>
 
-        <nav class="nav-desktop" role="navigation" aria-label="Navigation principale">
-          <span class="nav-links">
-            <a href="#accueil">Accueil</a>
-            <a href="#accompagnement">Comment je fonctionne</a>
-            <a href="#gains">Gains obtenus</a>
-            <a href="#avis">Avis clients</a>
-            <a href="#faq">FAQ</a>
-          </span>
-          <a href="https://cal.com/lyzario/30min" class="nav-cta" target="_blank" rel="noopener noreferrer"><img src="assets/moi.png" alt="" class="nav-cta-avatar">Réserver un appel</a>
-        </nav>
-
-        <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" id="menuToggle">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
-      </div>
-
-      <nav class="nav-mobile" id="navMobile" aria-label="Menu mobile" hidden>
-        <a href="#accueil">Accueil</a>
-        <a href="#accompagnement">Comment je fonctionne</a>
-        <a href="#gains">Gains obtenus</a>
-        <a href="#avis">Avis clients</a>
-        <a href="#faq">FAQ</a>
+      <nav class="nav-desktop" role="navigation" aria-label="Navigation principale">
+        <span class="nav-links">
+          <a href="#accueil">Accueil</a>
+          <a href="#accompagnement">Comment je fonctionne</a>
+          <a href="#gains">Gains obtenus</a>
+          <a href="#avis">Avis clients</a>
+          <a href="#faq">FAQ</a>
+        </span>
         <a href="https://cal.com/lyzario/30min" class="nav-cta" target="_blank" rel="noopener noreferrer"><img src="assets/moi.png" alt="" class="nav-cta-avatar">Réserver un appel</a>
       </nav>
-    </header>
 
+      <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" id="menuToggle">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="nav-mobile" id="navMobile" aria-label="Menu mobile" hidden>
+      <a href="#accueil">Accueil</a>
+      <a href="#accompagnement">Comment je fonctionne</a>
+      <a href="#gains">Gains obtenus</a>
+      <a href="#avis">Avis clients</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://cal.com/lyzario/30min" class="nav-cta" target="_blank" rel="noopener noreferrer"><img src="assets/moi.png" alt="" class="nav-cta-avatar">Réserver un appel</a>
+    </nav>
+  </header>
+
+  <div class="page-frame">
     <main id="accueil">
     <section class="hero" aria-labelledby="hero-title">
       <div class="site-container">
@@ -2082,9 +2078,6 @@
       var navMobile = document.getElementById('navMobile');
       var backToTop = document.getElementById('backToTop');
       function onScroll() {
-        var pastHeader = window.scrollY > 80;
-        header.classList.toggle('is-fixed', pastHeader);
-        document.body.classList.toggle('menu-fixed', pastHeader);
         header.classList.toggle('scrolled', window.scrollY > 20);
         if (backToTop) backToTop.classList.toggle('show', window.scrollY > 500);
       }
