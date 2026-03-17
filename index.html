@@ -158,9 +158,8 @@
         0 0 0 1px rgba(139, 92, 246, 0.15),
         0 4px 24px rgba(139, 92, 246, 0.25);
     }
-    .page-frame > main {
-      padding-top: 7.2rem;
-    }
+    /* Le header est fixed → on décale le cadre global */
+    .page-frame { margin-top: 7.2rem; }
 
     /* ========== Animations (scroll reveal) ========== */
     .reveal {
@@ -245,7 +244,7 @@
     }
     @media (max-width: 740px) {
       .header { border-radius: 12px 12px 0 0; width: calc(100% - 1.5rem); }
-      .page-frame > main { padding-top: 6rem; }
+      .page-frame { margin-top: 6rem; }
     }
 
     /* Cadre centré : au premier plan par rapport au fond (contraste, relief) */
@@ -313,7 +312,7 @@
     }
 
     @media (max-width: 600px) {
-      .logo-img { height: 84px; }
+      .logo-img { height: 60px; }
     }
     .nav-desktop {
       display: flex;
@@ -1650,39 +1649,39 @@
   <div class="bg-gradient-orb bg-gradient-orb-2" aria-hidden="true"></div>
   <div class="flow-line" aria-hidden="true"></div>
 
-  <div class="page-frame">
-    <header class="header" id="header" role="banner">
-      <div class="header-inner">
-        <a href="#" class="logo"><img src="./assets/logo.png" alt="Lyzario" class="logo-img"></a>
+  <header class="header" id="header" role="banner">
+    <div class="header-inner">
+      <a href="#" class="logo"><img src="./assets/logo.png" alt="Lyzario" class="logo-img"></a>
 
-        <nav class="nav-desktop" role="navigation" aria-label="Navigation principale">
-          <span class="nav-links">
-            <a href="#accueil">Accueil</a>
-            <a href="#accompagnement">Comment je fonctionne</a>
-            <a href="#gains">Gains obtenus</a>
-            <a href="#avis">Avis clients</a>
-            <a href="#faq">FAQ</a>
-          </span>
-          <a href="https://cal.com/lyzario/30min" class="nav-cta" target="_blank" rel="noopener noreferrer"><img src="assets/moi.png" alt="" class="nav-cta-avatar">Réserver un appel</a>
-        </nav>
-
-        <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" id="menuToggle">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
-      </div>
-
-      <nav class="nav-mobile" id="navMobile" aria-label="Menu mobile" hidden>
-        <a href="#accueil">Accueil</a>
-        <a href="#accompagnement">Comment je fonctionne</a>
-        <a href="#gains">Gains obtenus</a>
-        <a href="#avis">Avis clients</a>
-        <a href="#faq">FAQ</a>
+      <nav class="nav-desktop" role="navigation" aria-label="Navigation principale">
+        <span class="nav-links">
+          <a href="#accueil">Accueil</a>
+          <a href="#accompagnement">Comment je fonctionne</a>
+          <a href="#gains">Gains obtenus</a>
+          <a href="#avis">Avis clients</a>
+          <a href="#faq">FAQ</a>
+        </span>
         <a href="https://cal.com/lyzario/30min" class="nav-cta" target="_blank" rel="noopener noreferrer"><img src="assets/moi.png" alt="" class="nav-cta-avatar">Réserver un appel</a>
       </nav>
-    </header>
 
+      <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" id="menuToggle">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="nav-mobile" id="navMobile" aria-label="Menu mobile" hidden>
+      <a href="#accueil">Accueil</a>
+      <a href="#accompagnement">Comment je fonctionne</a>
+      <a href="#gains">Gains obtenus</a>
+      <a href="#avis">Avis clients</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://cal.com/lyzario/30min" class="nav-cta" target="_blank" rel="noopener noreferrer"><img src="assets/moi.png" alt="" class="nav-cta-avatar">Réserver un appel</a>
+    </nav>
+  </header>
+
+  <div class="page-frame">
     <main id="accueil">
     <section class="hero" aria-labelledby="hero-title">
       <div class="site-container">
