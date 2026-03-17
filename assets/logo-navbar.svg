@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 80" width="400" height="80">
+  <defs>
+    <linearGradient id="icon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+  </defs>
+  <!-- Icon: star, violet to pink -->
+  <path fill="url(#icon-grad)" d="M40 12l6.5 13.2 14.5 2.1-10.5 10.3 2.5 14.5L40 48.5l-12.5 6.6 2.5-14.5-10.5-10.3 14.5-2.1L40 12z"/>
+  <!-- Text: Lyzario, white -->
+  <text x="80" y="52" fill="#fff" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="600" letter-spacing="0.02em">Lyzario</text>
+</svg>
