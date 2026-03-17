@@ -131,10 +131,11 @@
 
     /* ========== HEADER & MENU (fin style AstralConnect, logo visible) ========== */
     .header {
-      position: sticky;
+      position: fixed;
       top: 0;
-      left: 0;
-      right: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1024px, 90%);
       z-index: 100;
       padding: 0.55rem 0.9rem;
       min-height: 0;
@@ -156,6 +157,9 @@
       box-shadow:
         0 0 0 1px rgba(139, 92, 246, 0.15),
         0 4px 24px rgba(139, 92, 246, 0.25);
+    }
+    .page-frame > main {
+      padding-top: 7.2rem;
     }
 
     /* ========== Animations (scroll reveal) ========== */
@@ -239,7 +243,10 @@
     @media (max-width: 600px) {
       .back-to-top { right: 12px; bottom: 12px; width: 42px; height: 42px; }
     }
-    @media (max-width: 740px) { .header { border-radius: 12px 12px 0 0; } }
+    @media (max-width: 740px) {
+      .header { border-radius: 12px 12px 0 0; width: calc(100% - 1.5rem); }
+      .page-frame > main { padding-top: 6rem; }
+    }
 
     /* Cadre centré : au premier plan par rapport au fond (contraste, relief) */
     .page-frame {
