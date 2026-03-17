@@ -1290,6 +1290,28 @@
       .avis-bandeau-track { gap: 1.25rem; }
     }
 
+    /* ========== CTA bas de page (avant FAQ) ========== */
+    .bottom-cta {
+      position: relative;
+      z-index: 1;
+      padding: 1.25rem 0 0.25rem;
+    }
+    .bottom-cta-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+      display: flex;
+      justify-content: center;
+    }
+    .bottom-cta .hero-cta {
+      min-width: min(420px, 100%);
+      text-align: center;
+      box-shadow:
+        0 0 26px rgba(139, 92, 246, 0.22),
+        0 0 0 1px rgba(139, 92, 246, 0.16) inset;
+    }
+
     /* ========== SECTION FAQ – pro, futuriste ========== */
     .faq {
       position: relative;
@@ -1526,7 +1548,7 @@
             <a href="#automatisations">Automatisations</a>
             <a href="#accompagnement">Accompagnement</a>
           </span>
-          <a href="#contact" class="nav-cta"><img src="assets/moi.png" alt="" class="nav-cta-avatar">Réserver un appel</a>
+          <a href="https://cal.com/lyzario/30min" class="nav-cta" target="_blank" rel="noopener noreferrer"><img src="assets/moi.png" alt="" class="nav-cta-avatar">Réserver un appel</a>
         </nav>
 
         <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" id="menuToggle">
@@ -1541,7 +1563,7 @@
         <a href="#formations">Formations IA</a>
         <a href="#automatisations">Automatisations</a>
         <a href="#accompagnement">Accompagnement</a>
-        <a href="#contact" class="nav-cta"><img src="assets/moi.png" alt="" class="nav-cta-avatar">Réserver un appel</a>
+        <a href="https://cal.com/lyzario/30min" class="nav-cta" target="_blank" rel="noopener noreferrer"><img src="assets/moi.png" alt="" class="nav-cta-avatar">Réserver un appel</a>
       </nav>
     </header>
 
@@ -1554,7 +1576,7 @@
             <img src="assets/avislinkedin.png" alt="Avis clients 5 étoiles" class="hero-social-proof-img">
           </div>
           <h1 id="hero-title">Gagnez au minimum <span class="hero-highlight">20 heures</span> par mois<br><span class="hero-line2">grâce à l'IA et l'automatisation</span></h1>
-          <p class="hero-cta-wrap"><a href="#contact" class="hero-cta">Prendre rendez-vous</a></p>
+          <p class="hero-cta-wrap"><a href="https://cal.com/lyzario/30min" class="hero-cta" target="_blank" rel="noopener noreferrer">Prendre rendez-vous</a></p>
           <div class="hero-video-wrap" id="heroVideoWrap">
             <video class="hero-video" id="heroVideo" src="./assets/Lyzario/lyzario.mp4" type="video/mp4" loop playsinline preload="auto" controls>
               Votre navigateur ne peut pas lire cette vidéo.
@@ -1865,6 +1887,12 @@
             </article>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="bottom-cta" aria-label="Réservation d'appel">
+      <div class="bottom-cta-inner">
+        <a class="hero-cta" href="https://cal.com/lyzario/30min" target="_blank" rel="noopener noreferrer">Réserver un appel</a>
       </div>
     </section>
 
