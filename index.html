@@ -158,9 +158,11 @@
         0 0 0 1px rgba(139, 92, 246, 0.15),
         0 4px 24px rgba(139, 92, 246, 0.25);
     }
-    .page-frame { margin-top: 7.5rem; }
+    /* Menu fixed → on décale le contenu (sans casser le design) */
+    .page-frame { margin-top: 1.25rem; }
+    main { padding-top: 7.5rem; }
     @media (max-width: 740px) {
-      .page-frame { margin-top: 5.5rem; }
+      main { padding-top: 5.5rem; }
     }
     /* ========== Animations (scroll reveal) ========== */
     .reveal {
@@ -432,7 +434,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2.4rem 0 1rem;
+      padding: 2.1rem 0 1rem;
       text-align: center;
     }
     .hero .site-container { width: 100%; }
@@ -441,7 +443,7 @@
     .hero-social-proof {
       display: flex;
       justify-content: center;
-      margin-top: 1.25rem;
+      margin-top: 0.8rem;
       margin-bottom: 0.2rem;
     }
     .hero-social-proof-img {
@@ -470,7 +472,7 @@
       font-weight: 500;
       color: var(--text-white);
       letter-spacing: 0.05em;
-      margin-bottom: 0.9rem;
+      margin-bottom: 0.75rem;
       padding: 0.22rem 0.7rem 0.22rem 0.5rem;
       border: 1px solid rgba(139, 92, 246, 0.5);
       border-radius: 100px;
