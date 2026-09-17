@@ -1,0 +1,108 @@
+/* Tokens issus de la charte Lyzario (septembre 2026). */
+:root {
+  /* Bleu nuit */
+  --nuit-950: #0b1224;
+  --nuit-900: #0f172a;
+  --nuit-800: #141d33;
+
+  /* Turquoise, accent de précision */
+  --teal-600: #14b8a6;
+  --teal-500: #2dd4bf;
+  --teal-400: #5eead4;
+  --teal-300: #99f6e4;
+  --teal-100: #ccfbf1;
+  /* Variantes validées pour le contraste sur fond clair uniquement */
+  --teal-display-on-light: #0d9488; /* 3,6:1, grands titres */
+  --teal-text-on-light: #0f766e; /* 5,2:1, libellés, liens, focus */
+
+  /* Neutres */
+  --blanc-casse: #f8fafc;
+  --blanc: #ffffff;
+  --slate-800: #1e293b;
+  --slate-700: #334155;
+  --slate-600: #475569;
+  --slate-500: #64748b;
+  --slate-400: #94a3b8;
+  --slate-300: #cbd5e1;
+  --slate-200: #e2e8f0;
+  --slate-100: #f1f5f9;
+
+  /* Typographie */
+  --font-serif: var(--font-instrument-serif), Georgia, serif;
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
+
+  --text-display-xl: clamp(2.75rem, 1.35rem + 5.6vw, 5.5rem); /* 44 → 88 */
+  --text-display-lg: clamp(2.25rem, 1.45rem + 3.2vw, 4rem); /* 36 → 64 */
+  --text-display-md: clamp(1.875rem, 1.45rem + 1.7vw, 2.75rem); /* 30 → 44 */
+  --text-display-sm: clamp(1.5rem, 1.38rem + 0.5vw, 1.75rem); /* 24 → 28 */
+  --text-xl: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); /* 18 → 22 */
+  --text-lg: 1.125rem;
+  --text-md: 1rem;
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
+
+  /* Espacements */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  --section-y: clamp(56px, 2.25rem + 4vw, 96px);
+  --gutter: clamp(16px, 4vw, 32px);
+  --container: 1200px;
+  --measure: 760px;
+  --header-h: 68px;
+
+  /* Rayons */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+
+  /* Mouvement */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 220ms;
+}
+
+/* Thème sombre (défaut de marque) */
+.theme-dark {
+  --bg: var(--nuit-900);
+  --fg: var(--blanc-casse);
+  --fg-soft: var(--slate-300);
+  --fg-muted: var(--slate-400);
+  --accent: var(--teal-500);
+  --accent-display: var(--teal-500);
+  --border: rgba(248, 250, 252, 0.1);
+  --border-strong: rgba(248, 250, 252, 0.18);
+  --surface: rgba(248, 250, 252, 0.04);
+  --grid-line: rgba(248, 250, 252, 0.05);
+  --focus-ring: var(--teal-500);
+  --focus-halo: rgba(45, 212, 191, 0.45);
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+/* Thème clair */
+.theme-light {
+  --bg: var(--blanc-casse);
+  --fg: var(--nuit-900);
+  --fg-soft: var(--slate-700);
+  --fg-muted: var(--slate-600);
+  --accent: var(--teal-text-on-light);
+  --accent-display: var(--teal-display-on-light);
+  --border: var(--slate-200);
+  --border-strong: var(--slate-300);
+  --surface: var(--blanc);
+  --grid-line: rgba(15, 23, 42, 0.04);
+  --focus-ring: var(--teal-text-on-light);
+  --focus-halo: rgba(15, 118, 110, 0.25);
+  background-color: var(--bg);
+  color: var(--fg);
+}

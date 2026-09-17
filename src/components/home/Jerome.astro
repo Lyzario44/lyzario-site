@@ -1,0 +1,157 @@
+---
+// Présentation de Jérôme : uniquement des faits validés.
+// Sans photo réelle, un monogramme « JV » tient la place (élément de marque, pas un faux portrait).
+import { Image } from 'astro:assets';
+import { media, afficherEmplacements } from '../../lib/medias';
+import MediaSlot from '../MediaSlot.astro';
+import { site } from '../../data/site';
+
+const portrait = media('portrait-jerome');
+const { theme = 'dark', separee = false } = Astro.props as { theme?: 'dark' | 'light'; separee?: boolean };
+---
+
+<section class:list={['section', 'jerome', `theme-${theme}`, { 'grid-bg': theme === 'dark', 'section-separee': separee }]} id="jerome" aria-labelledby="jerome-title">
+  <div class="container jerome-inner">
+    <div class="jerome-visuel">
+      {
+        portrait.src ? (
+          <Image
+            src={portrait.src}
+            alt={portrait.alt}
+            widths={[240, 480, 720]}
+            sizes="(min-width: 1024px) 320px, 112px"
+            formats={['avif', 'webp']}
+            class="jerome-photo"
+            loading="lazy"
+          />
+        ) : afficherEmplacements ? (
+          <MediaSlot media={portrait} rond class="jerome-photo" />
+        ) : (
+          <span class="jerome-monogramme" aria-hidden="true">JV</span>
+        )
+      }
+    </div>
+
+    <div class="jerome-texte">
+      <p class="label">Qui je suis</p>
+      <h2 id="jerome-title" class="display display-lg jerome-title">Jérôme Verger, <em>fondateur de Lyzario</em></h2>
+      <p class="jerome-p">
+        C’est moi qui regarde comment vous travaillez, qui construis votre outil et qui forme vos équipes. Je reste présent pendant la mise en route.
+      </p>
+      <p class="jerome-faits">
+        <span>{site.proof}</span>
+        <span>Basé à {site.address.locality}, près de Nantes</span>
+      </p>
+      <a class="jerome-lien" href={site.linkedinUrl} target="_blank" rel="noopener">
+        Voir mon profil LinkedIn<span class="sr-only"> (nouvel onglet)</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .jerome-inner {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-5);
+    align-items: start;
+  }
+
+  .jerome-visuel {
+    width: 88px;
+  }
+
+  .jerome-visuel :global(.jerome-photo),
+  .jerome-monogramme {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .jerome-monogramme {
+    background: var(--nuit-800);
+    border: 1px solid rgba(45, 212, 191, 0.45);
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    letter-spacing: 0.02em;
+    color: var(--blanc-casse);
+  }
+
+  .jerome-title {
+    margin-top: var(--space-3);
+    max-width: 12em;
+  }
+
+  .jerome-p {
+    margin-top: var(--space-4);
+    max-width: 36rem;
+    font-size: var(--text-lg);
+    color: var(--fg-soft);
+  }
+
+  .jerome-faits {
+    margin-top: var(--space-4);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    color: var(--fg);
+  }
+
+  .jerome-faits span {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .jerome-faits span::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--teal-500);
+  }
+
+  .jerome-lien {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-top: var(--space-3);
+    color: var(--fg);
+    text-underline-offset: 4px;
+    text-decoration-color: var(--teal-500);
+  }
+
+  @media (max-width: 639px) {
+    .jerome-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .jerome-visuel {
+      width: 72px;
+    }
+
+    .jerome-monogramme {
+      font-size: 1.625rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .jerome-inner {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+      column-gap: var(--space-9);
+      align-items: center;
+    }
+
+    .jerome-visuel {
+      width: 100%;
+      max-width: 300px;
+      justify-self: center;
+    }
+
+    .jerome-monogramme {
+      font-size: 5rem;
+    }
+  }
+</style>

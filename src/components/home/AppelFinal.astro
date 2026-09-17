@@ -1,0 +1,77 @@
+---
+import SquareMotif from '../SquareMotif.astro';
+import { site } from '../../data/site';
+const { theme = 'dark', separee = false } = Astro.props as { theme?: 'dark' | 'light'; separee?: boolean };
+---
+
+<section class:list={['section', 'appel', `theme-${theme}`, { 'grid-bg': theme === 'dark', 'section-separee': separee }]} id="contact" aria-labelledby="appel-title">
+  <div class="container appel-inner">
+    <div>
+      <h2 id="appel-title" class="display display-xl appel-title">Discutons de <em>vos process</em></h2>
+      <p class="lead appel-lead">
+        Commencez par l’audit offert&#8239;: 30 minutes pour comprendre comment votre entreprise fonctionne, puis une proposition de structuration et une première maquette de votre outil, à vos couleurs. Sans engagement.
+      </p>
+      <div class="appel-actions">
+        <a class="btn btn-primary" href={site.bookingUrl} target="_blank" rel="noopener">
+          {site.ctaAudit}<span class="sr-only"> (nouvel onglet)</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6"></path>
+          </svg>
+        </a>
+        <a class="appel-mail" href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+    </div>
+    <div class="appel-visuel">
+      <SquareMotif anime={false} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .appel-inner {
+    display: grid;
+    gap: var(--space-7);
+    align-items: center;
+  }
+
+  .appel-lead {
+    margin-top: var(--space-4);
+    max-width: 34rem;
+  }
+
+  .appel-actions {
+    margin-top: var(--space-5);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-6);
+  }
+
+  .appel-mail {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--fg);
+    text-underline-offset: 4px;
+    text-decoration-color: var(--border-strong);
+  }
+
+  .appel-mail:hover {
+    text-decoration-color: var(--teal-500);
+  }
+
+  .appel-visuel {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .appel-inner {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      column-gap: var(--space-8);
+    }
+
+    .appel-visuel {
+      display: block;
+    }
+  }
+</style>

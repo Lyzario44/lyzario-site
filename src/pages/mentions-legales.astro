@@ -1,0 +1,46 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { site } from '../data/site';
+---
+
+<PageLayout
+  title="Mentions légales | Lyzario"
+  description="Mentions légales du site lyzario.fr : éditeur, hébergeur, propriété intellectuelle et droit applicable."
+  label="Informations"
+  h1="Mentions légales"
+  miseAJour="17 septembre 2026"
+>
+  <h2>Éditeur du site</h2>
+  <p>Le site <strong>lyzario.fr</strong> est édité par&#8239;:</p>
+  <address>
+    <strong>{site.founder}</strong> ({site.name})<br />
+    SIRET&#8239;: {site.siret}<br />
+    {site.address.street}<br />
+    {site.address.postalCode} {site.address.locality}, France<br />
+    Email&#8239;: <a href={`mailto:${site.email}`}>{site.email}</a>
+  </address>
+  <p>Directeur de la publication&#8239;: {site.founder}.</p>
+
+  <h2>Hébergement</h2>
+  <address>
+    <strong>Vercel Inc.</strong><br />
+    440 N Barranca Ave #4133<br />
+    Covina, CA 91723, États-Unis<br />
+    <a href="https://vercel.com" rel="noopener">vercel.com</a>
+  </address>
+
+  <h2>Propriété intellectuelle</h2>
+  <p>
+    L’ensemble du contenu de ce site (textes, images, graphismes, logo) est protégé par le droit d’auteur et le droit des marques. Toute reproduction ou utilisation sans autorisation préalable de {site.founder} est interdite.
+  </p>
+
+  <h2>Données personnelles</h2>
+  <p>
+    La manière dont vos données sont utilisées est détaillée dans la <a href="/confidentialite">politique de confidentialité</a>.
+  </p>
+
+  <h2>Droit applicable</h2>
+  <p>
+    Les présentes mentions sont régies par le droit français. En cas de litige, les tribunaux français sont seuls compétents.
+  </p>
+</PageLayout>

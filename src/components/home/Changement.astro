@@ -1,0 +1,206 @@
+---
+// Diapositives « Ce qui change » et « Résultat » de l'offre, condensées.
+const lignes = [
+  ['L’info est dans les mails, les fichiers, les têtes', 'Elle est au même endroit, et chacun y a accès'],
+  ['La même adresse tapée dans trois fichiers', 'Tapée une fois, reprise partout'],
+  ['La relance part si quelqu’un y pense', 'La relance part à la date prévue'],
+  ['Pour savoir où ça en est, vous demandez', 'Vous ouvrez l’outil, vous savez'],
+];
+
+const resultats = [
+  { titre: 'Des heures', texte: 'Relancer, recopier, chercher un mail : ça sort du planning de vos équipes.' },
+  { titre: 'Une vue claire', texte: 'Où en est chaque dossier, qui s’en occupe, ce qui bloque.' },
+  { titre: 'De la tranquillité', texte: 'Une absence ou un départ, et l’organisation tient.' },
+];
+---
+
+<section class="section changement theme-dark grid-bg" id="ce-qui-change" aria-labelledby="changement-title">
+  <div class="container changement-inner">
+    <div class="changement-tete">
+      <p class="label">Ce qui change</p>
+      <h2 id="changement-title" class="display display-lg changement-title">
+        Les tâches chronophages <em>sortent de vos journées</em>
+      </h2>
+      <p class="changement-principe">
+        J’automatise seulement ce qui prend du temps sans rien apporter. Les décisions restent entre les mains de vos équipes.
+      </p>
+    </div>
+
+    <table class="avant-apres">
+      <caption class="sr-only">Votre quotidien aujourd’hui, et avec votre outil</caption>
+      <thead>
+        <tr>
+          <th scope="col" class="label col-avant">Aujourd’hui</th>
+          <th scope="col" class="label col-apres">Avec votre outil</th>
+        </tr>
+      </thead>
+      <tbody>
+        {lignes.map(([avant, apres]) => (
+          <tr>
+            <td class="cell-avant">{avant}</td>
+            <td class="cell-apres">{apres}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+    <div class="resultats">
+      <h3 class="label resultats-title">Ce que vos équipes récupèrent</h3>
+      <ul role="list" class="resultats-liste">
+        {resultats.map((r) => (
+          <li class="resultat">
+            <p class="display display-sm resultat-titre">{r.titre}</p>
+            <p class="resultat-texte">{r.texte}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .changement-inner {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .changement-title {
+    margin-top: var(--space-4);
+    max-width: 12em;
+  }
+
+  .changement-principe {
+    margin-top: var(--space-4);
+    max-width: 30rem;
+    color: var(--fg-soft);
+  }
+
+  .avant-apres {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .avant-apres th {
+    text-align: left;
+    padding: 0 0 var(--space-3);
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  .col-avant {
+    color: var(--fg-muted);
+  }
+
+  .avant-apres td {
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .avant-apres .cell-avant {
+    width: 48%;
+    padding-right: var(--space-5);
+    color: var(--fg-muted);
+  }
+
+  .avant-apres .cell-apres {
+    position: relative;
+    padding-left: var(--space-5);
+    color: var(--fg);
+  }
+
+  .cell-apres::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: calc(var(--space-4) + 0.62em);
+    width: 6px;
+    height: 6px;
+    background: var(--teal-500);
+  }
+
+  .resultats-title {
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  .resultats-liste {
+    display: grid;
+  }
+
+  .resultat {
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .resultat-titre {
+    color: var(--teal-500);
+  }
+
+  .resultat-texte {
+    margin-top: var(--space-1);
+    color: var(--fg-soft);
+  }
+
+  @media (max-width: 719px) {
+    .avant-apres thead {
+      display: none;
+    }
+
+    .avant-apres,
+    .avant-apres tbody,
+    .avant-apres tr,
+    .avant-apres td {
+      display: block;
+      width: 100%;
+    }
+
+    .avant-apres tr {
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .avant-apres td {
+      border: 0;
+      padding: 0;
+    }
+
+    .avant-apres .cell-avant {
+      width: 100%;
+      padding: 0;
+      font-size: var(--text-sm);
+    }
+
+    .avant-apres .cell-apres {
+      margin-top: var(--space-1);
+      padding-left: 18px;
+    }
+
+    .cell-apres::before {
+      top: 0.62em;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .resultats-liste {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: var(--space-6);
+    }
+
+    .resultat {
+      border-bottom: 0;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .changement-inner {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+      column-gap: var(--space-9);
+      row-gap: var(--space-7);
+      align-items: start;
+    }
+
+    .resultats {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

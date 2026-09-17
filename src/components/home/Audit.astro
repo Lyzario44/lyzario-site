@@ -1,0 +1,264 @@
+---
+// Audit offert : porte d'entrée du parcours commercial. Contenu dans src/data/offre.ts.
+import MediaSlot from '../MediaSlot.astro';
+import { media, visible } from '../../lib/medias';
+import { site } from '../../data/site';
+import { audit, parcours } from '../../data/offre';
+
+const { theme = 'light', separee = false } = Astro.props as { theme?: 'dark' | 'light'; separee?: boolean };
+
+const maquette = media('exemple-maquette-audit');
+const avecMaquette = visible(maquette);
+const typo = (t: string) => t.replace(/ ([?!:;])/g, ' $1');
+---
+
+<section
+  class:list={['section', 'audit', `theme-${theme}`, { 'grid-bg': theme === 'dark', 'section-separee': separee }]}
+  id="audit"
+  aria-labelledby="audit-title"
+>
+  <div class="container">
+    <div class:list={['audit-haut', { 'avec-maquette': avecMaquette }]}>
+      <div class="audit-texte">
+        <p class="label">Pour commencer</p>
+        <h2 id="audit-title" class="display display-lg audit-title">
+          Votre audit offert, <em>avec du concret à la clé</em>
+        </h2>
+        <p class="audit-intro">Offert et sans engagement. Voici concrètement ce que vous recevez.</p>
+      </div>
+      {avecMaquette && <MediaSlot media={maquette} class="audit-maquette" sizes="(min-width: 1024px) 600px, 100vw" />}
+    </div>
+
+    <ol role="list" class="recevez" aria-label="Ce que vous recevez">
+      {audit.recevez.map((item, i) => (
+        <li class="recevez-item">
+          <p class="label recevez-num">{String(i + 1).padStart(2, '0')}</p>
+          <h3 class="recevez-titre">{item.titre}</h3>
+          <p class="recevez-texte">{item.texte}</p>
+        </li>
+      ))}
+    </ol>
+
+    <p class="audit-restitution">
+      Je vous présente le tout lors d’une restitution, pour que vous voyiez concrètement ce qui est possible chez vous.
+    </p>
+
+    <div class="audit-bas">
+      <div class="parcours">
+        <h3 class="label parcours-titre">La suite, si on travaille ensemble</h3>
+        <ol role="list" class="parcours-liste">
+          {parcours.map((etape) => (
+            <li class="parcours-etape">{etape}</li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="audit-cadre">
+        <p class="audit-garde">{audit.gardeFous.slice(1).map(typo).join(' ')}</p>
+        <a class="btn btn-primary audit-cta" href={site.bookingUrl} target="_blank" rel="noopener">
+          {site.ctaAudit}<span class="sr-only"> (nouvel onglet)</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .audit-haut {
+    display: grid;
+    gap: var(--space-6);
+    align-items: center;
+  }
+
+  .audit-title {
+    margin-top: var(--space-4);
+    max-width: 12em;
+  }
+
+  .audit-intro {
+    margin-top: var(--space-4);
+    max-width: 36rem;
+    font-size: var(--text-lg);
+    color: var(--fg-soft);
+  }
+
+  .recevez {
+    margin-top: var(--space-6);
+    display: grid;
+    counter-reset: recevez;
+  }
+
+  .recevez-item {
+    display: grid;
+    align-content: start;
+    grid-template-columns: 32px minmax(0, 1fr);
+    column-gap: var(--space-3);
+    padding: var(--space-4) 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .recevez-num {
+    grid-row: span 2;
+    padding-top: 3px;
+  }
+
+  .recevez-titre {
+    font-size: var(--text-lg);
+    font-weight: 500;
+    color: var(--fg);
+  }
+
+  .recevez-texte {
+    margin-top: var(--space-1);
+    color: var(--fg-soft);
+  }
+
+  .audit-restitution {
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border);
+    color: var(--fg);
+  }
+
+  .audit-bas {
+    margin-top: var(--space-6);
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .parcours {
+    padding: var(--space-5);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .parcours-titre {
+    color: var(--fg-muted);
+  }
+
+  .parcours-liste {
+    margin-top: var(--space-4);
+    display: grid;
+    gap: var(--space-2);
+    counter-reset: parcours;
+  }
+
+  .parcours-etape {
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    counter-increment: parcours;
+    color: var(--fg);
+  }
+
+  .parcours-etape::before {
+    content: counter(parcours);
+    flex: none;
+    display: inline-grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-xs);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .parcours-etape:first-child::before {
+    background: var(--teal-500);
+    border-color: var(--teal-500);
+    color: var(--nuit-900);
+  }
+
+  .audit-cadre {
+    display: grid;
+    gap: var(--space-5);
+    align-content: start;
+  }
+
+  .audit-garde {
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+  }
+
+  .audit-cta {
+    justify-self: start;
+  }
+
+  @media (max-width: 639px) {
+    /* Mobile : les titres suffisent, le détail reste sur ordinateur */
+    .recevez-texte {
+      display: none;
+    }
+
+    .recevez-item {
+      padding: var(--space-3) 0;
+    }
+
+    .recevez-titre {
+      font-size: var(--text-md);
+    }
+
+    .recevez-num {
+      padding-top: 2px;
+    }
+
+    .parcours {
+      padding: var(--space-4);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .audit-cta {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .recevez {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--space-6);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .audit-haut.avec-maquette {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      column-gap: var(--space-8);
+    }
+
+    .recevez {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      column-gap: var(--space-5);
+    }
+
+    .recevez-item {
+      grid-template-columns: 1fr;
+      row-gap: var(--space-2);
+    }
+
+    .recevez-num {
+      grid-row: auto;
+      padding-top: 0;
+    }
+
+    .audit-bas {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      column-gap: var(--space-7);
+      align-items: start;
+    }
+
+    .parcours-liste {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--space-5);
+      grid-auto-flow: column;
+      grid-template-rows: repeat(4, auto);
+    }
+  }
+</style>

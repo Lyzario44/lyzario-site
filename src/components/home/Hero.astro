@@ -1,0 +1,244 @@
+---
+import SquareMotif from '../SquareMotif.astro';
+import { site } from '../../data/site';
+---
+
+<section class="hero theme-dark grid-bg" aria-labelledby="hero-title">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <p class="hero-chip">
+        <span class="hero-chip-sq" aria-hidden="true"></span>
+        Et si tout tournait plus simplement&#8239;?
+      </p>
+
+      <h1 id="hero-title" class="display display-xl hero-title">
+        Je rends votre entreprise <em>plus simple</em> à faire tourner
+      </h1>
+
+      <p class="lead hero-lead">
+        Je rassemble vos informations dans un outil simple, construit autour de votre façon de travailler.
+        Les tâches répétitives se font toutes seules, et vous gardez les outils qui vous servent déjà.
+      </p>
+
+      <ul class="hero-benefits" role="list">
+        <li>Moins de tâches manuelles</li>
+        <li>Moins d’oublis</li>
+        <li>Plus de visibilité</li>
+      </ul>
+
+      <div class="hero-audit">
+        <svg class="hero-audit-motif" viewBox="0 0 60 60" aria-hidden="true" focusable="false">
+          {Array.from({ length: 9 }, (_, i) => (
+            <rect x={(i % 3) * 20 + 0.5} y={Math.floor(i / 3) * 20 + 0.5} width="19" height="19" />
+          ))}
+          <rect class="hero-audit-plein" x="40.5" y="40.5" width="19" height="19" />
+        </svg>
+        <p>
+          <strong>Audit offert</strong> avec une proposition de structuration de vos process et une première maquette de votre outil à vos couleurs.
+        </p>
+      </div>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href={site.bookingUrl} target="_blank" rel="noopener">
+          {site.ctaAudit}<span class="sr-only"> (nouvel onglet)</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6"></path>
+          </svg>
+        </a>
+        <a class="btn btn-ghost" href="#audit">Ce que contient l’audit</a>
+      </div>
+      <p class="hero-sans-engagement">Sans engagement.</p>
+    </div>
+
+    <div class="hero-visual">
+      <SquareMotif />
+    </div>
+
+    <p class="hero-proof">{site.proof}</p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: calc(var(--header-h) + clamp(40px, 6vw, 88px));
+    padding-bottom: clamp(48px, 6vw, 88px);
+    overflow: hidden;
+    background-color: var(--nuit-900);
+    background-image:
+      radial-gradient(ellipse 60% 55% at 78% 42%, rgba(20, 29, 51, 0.9), transparent 70%),
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: auto, 40px 40px, 40px 40px;
+    background-position: center, -1px -1px, -1px -1px;
+  }
+
+  .hero-inner {
+    display: grid;
+    gap: var(--space-7);
+  }
+
+  .hero-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 8px 16px 8px 14px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    background: rgba(11, 18, 36, 0.6);
+    font-size: var(--text-sm);
+    color: var(--fg-soft);
+  }
+
+  .hero-chip-sq {
+    width: 6px;
+    height: 6px;
+    background: var(--teal-500);
+  }
+
+  .hero-title {
+    margin-top: var(--space-5);
+    max-width: 11.5em;
+  }
+
+  .hero-lead {
+    margin-top: var(--space-5);
+    max-width: 36rem;
+  }
+
+  .hero-benefits {
+    margin-top: var(--space-5);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    font-size: var(--text-md);
+    font-weight: 500;
+    color: var(--fg);
+  }
+
+  .hero-benefits li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .hero-benefits li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--teal-500);
+  }
+
+  .hero-audit {
+    margin-top: var(--space-6);
+    max-width: 38rem;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-5);
+    background: rgba(45, 212, 191, 0.06);
+    border: 1px solid rgba(45, 212, 191, 0.35);
+    border-radius: var(--radius-lg);
+    color: var(--fg-soft);
+  }
+
+  .hero-audit strong {
+    font-weight: 500;
+    color: var(--teal-400);
+  }
+
+  .hero-audit-motif {
+    flex: none;
+    width: 28px;
+    height: 28px;
+    margin-top: 2px;
+  }
+
+  .hero-audit-motif rect {
+    fill: none;
+    stroke: rgba(248, 250, 252, 0.4);
+  }
+
+  .hero-audit-motif .hero-audit-plein {
+    fill: var(--teal-500);
+    stroke: none;
+  }
+
+  .hero-actions {
+    margin-top: var(--space-5);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .hero-sans-engagement {
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+  }
+
+  .hero-visual {
+    max-width: 420px;
+    width: 100%;
+    justify-self: center;
+  }
+
+  .hero-proof {
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--border);
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+  }
+
+  @media (max-width: 520px) {
+    .hero-actions .btn {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .hero-visual {
+      display: none;
+    }
+
+    /* Mobile : l'audit offert prend la place des bénéfices pour garder le hero court */
+    .hero-benefits {
+      display: none;
+    }
+
+    .hero-audit {
+      margin-top: var(--space-5);
+      padding: var(--space-4);
+      gap: var(--space-3);
+    }
+
+    .hero-audit-motif {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .hero-visual {
+      max-width: 340px;
+      justify-self: start;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-inner {
+      grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+      column-gap: var(--space-7);
+      align-items: center;
+    }
+
+    .hero-visual {
+      max-width: none;
+      justify-self: end;
+    }
+
+    .hero-proof {
+      grid-column: 1 / -1;
+      margin-top: var(--space-7);
+    }
+  }
+</style>

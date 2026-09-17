@@ -1,0 +1,21 @@
+{
+  "name": "lyzario-site",
+  "type": "module",
+  "version": "2.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "check:placeholders": "node scripts/check-placeholders.mjs",
+    "check:tarifs": "node scripts/check-tarifs.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.3"
+  }
+}

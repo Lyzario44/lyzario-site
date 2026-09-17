@@ -1,0 +1,117 @@
+---
+// Pages secondaires (légal, études de cas, 404) : en-tête sombre court, contenu sur fond clair.
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  h1: string;
+  intro?: string;
+  label?: string;
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown>;
+  miseAJour?: string;
+}
+
+const { title, description, h1, intro, label, noindex, jsonLd, miseAJour } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} noindex={noindex} jsonLd={jsonLd}>
+  <header class="page-tete theme-dark grid-bg">
+    <div class="container">
+      <slot name="fil" />
+      {label && <p class="label">{label}</p>}
+      <h1 class="display display-lg page-titre">{h1}</h1>
+      {intro && <p class="lead page-intro">{intro}</p>}
+    </div>
+  </header>
+  <div class="page-corps theme-light">
+    <div class="container">
+      <div class="prose">
+        <slot />
+        {miseAJour && <p class="prose-maj">Dernière mise à jour&#8239;: {miseAJour}</p>}
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-tete {
+    padding-top: calc(var(--header-h) + clamp(40px, 6vw, 88px));
+    padding-bottom: clamp(40px, 5vw, 72px);
+  }
+
+  .page-titre {
+    margin-top: var(--space-4);
+    max-width: 16em;
+  }
+
+  .page-intro {
+    margin-top: var(--space-4);
+    max-width: 40rem;
+  }
+
+  .page-corps {
+    padding-block: clamp(48px, 6vw, 96px);
+  }
+
+  .prose {
+    max-width: var(--measure);
+    color: var(--fg-soft);
+  }
+
+  .prose :global(h2) {
+    margin-top: var(--space-7);
+    font-family: var(--font-serif);
+    font-size: var(--text-display-sm);
+    line-height: 1.15;
+    color: var(--fg);
+  }
+
+  .prose :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .prose :global(h3) {
+    margin-top: var(--space-5);
+    font-size: var(--text-lg);
+    font-weight: 500;
+    color: var(--fg);
+  }
+
+  .prose :global(p),
+  .prose :global(ul),
+  .prose :global(address) {
+    margin-top: var(--space-4);
+  }
+
+  .prose :global(address) {
+    font-style: normal;
+  }
+
+  .prose :global(ul) {
+    padding-left: 1.25rem;
+  }
+
+  .prose :global(li + li) {
+    margin-top: var(--space-2);
+  }
+
+  .prose :global(a) {
+    color: var(--accent);
+    text-underline-offset: 3px;
+  }
+
+  .prose :global(strong) {
+    font-weight: 500;
+    color: var(--fg);
+  }
+
+  .prose-maj {
+    margin-top: var(--space-7) !important;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border);
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+  }
+</style>

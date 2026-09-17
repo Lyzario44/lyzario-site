@@ -1,0 +1,113 @@
+---
+// Rendue uniquement s'il existe au moins un témoignage validé (voir index.astro et src/data/temoignages.ts).
+import { Image } from 'astro:assets';
+import { temoignagesValides } from '../../data/temoignages';
+
+const typo = (t: string) => t.replace(/ ([?!:;])/g, ' $1');
+const { theme = 'light', separee = false } = Astro.props as { theme?: 'dark' | 'light'; separee?: boolean };
+---
+
+<section class:list={['section', 'temoignages', `theme-${theme}`, { 'grid-bg': theme === 'dark', 'section-separee': separee }]} id="temoignages" aria-labelledby="temoignages-title">
+  <div class="container">
+    <p class="label">Témoignages</p>
+    <h2 id="temoignages-title" class="display display-lg temoignages-title">Ce qu’en disent <em>mes clients</em></h2>
+
+    <ul role="list" class:list={['temoignages-grille', `grille-${Math.min(temoignagesValides.length, 3)}`]}>
+      {temoignagesValides.map((t) => (
+        <li class="temoignage">
+          <figure>
+            <blockquote class="temoignage-citation">
+              <p>« {typo(t.citation)} »</p>
+            </blockquote>
+            <figcaption class="temoignage-auteur">
+              {t.photo && <Image src={t.photo} alt="" width={48} height={48} class="temoignage-photo" loading="lazy" />}
+              <span>
+                <span class="temoignage-nom">{t.nom}</span>
+                <span class="temoignage-fonction">{t.fonction}</span>
+              </span>
+            </figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .temoignages-title {
+    margin-top: var(--space-4);
+  }
+
+  .temoignages-grille {
+    margin-top: var(--space-6);
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .temoignage {
+    padding: var(--space-5);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .temoignage figure {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .temoignage-citation {
+    flex: 1;
+    font-size: var(--text-lg);
+    color: var(--fg);
+  }
+
+  .temoignage-auteur {
+    margin-top: var(--space-4);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .temoignage-auteur :global(.temoignage-photo) {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .temoignage-nom,
+  .temoignage-fonction {
+    display: block;
+  }
+
+  .temoignage-nom {
+    font-weight: 500;
+  }
+
+  .temoignage-fonction {
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+  }
+
+  @media (max-width: 767px) {
+    /* Mobile : deux témoignages au plus, pour garder la page courte */
+    .temoignage:nth-child(n + 3) {
+      display: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .grille-2,
+    .grille-3 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .grille-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

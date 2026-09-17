@@ -1,0 +1,31 @@
+---
+// Non indexée. data-bloquant (invisible) empêche la fusion tant que les CGV complètes ne sont pas fournies.
+// Aucun tarif n'est publié : le périmètre et la proposition commerciale sont établis après l'audit.
+import PageLayout from '../layouts/PageLayout.astro';
+import { site } from '../data/site';
+import { propositionApresAudit } from '../data/offre';
+
+const cgvCompletes = false;
+---
+
+<PageLayout
+  title="Conditions générales de vente | Lyzario"
+  description="Conditions générales de vente des prestations Lyzario : audit offert, mise en place d’un outil sur mesure et maintenance."
+  label="Informations"
+  h1="Conditions générales de vente"
+  noindex
+>
+  <h2>Prestations</h2>
+  <ul>
+    <li>Audit&#8239;: offert et sans engagement, réservé aux entreprises dont le besoin correspond au périmètre de Lyzario.</li>
+    <li>Accompagnement&#8239;: {propositionApresAudit.charAt(0).toLowerCase() + propositionApresAudit.slice(1)} Toute demande complémentaire ou évolution importante fait l’objet d’un devis séparé.</li>
+    <li>Maintenance&#8239;: facultative après les 30 jours de stabilisation, sans engagement.</li>
+  </ul>
+
+  <h2>Conditions d’intervention</h2>
+  <p data-bloquant={cgvCompletes ? undefined : 'CGV complètes à fournir'}>
+    Les conditions (tarifs, délais, modalités) vous sont communiquées avant tout engagement.
+  </p>
+
+  <p>Pour toute question&#8239;: <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+</PageLayout>

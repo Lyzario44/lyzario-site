@@ -1,0 +1,216 @@
+---
+// Diapositive « Vos outils actuels » de l'offre.
+const outils = [
+  { nom: 'Documents', zone: 'haut' },
+  { nom: 'Agenda', zone: 'gauche' },
+  { nom: 'Formation', zone: 'droite' },
+  { nom: 'Messagerie', zone: 'basg' },
+  { nom: 'Facturation', zone: 'basd' },
+];
+---
+
+<section class="section outils theme-light" id="outils" aria-labelledby="outils-title">
+  <div class="container outils-inner">
+    <div class="outils-texte">
+      <p class="label">Vos outils actuels</p>
+      <h2 id="outils-title" class="display display-lg outils-title">Pas besoin de <em>tout changer</em></h2>
+      <p class="outils-p">
+        Vous avez déjà des outils pour vos documents, votre facturation ou vos échanges&#8239;? Je les garde quand ils sont utiles et je les relie à votre nouvel espace.
+      </p>
+      <p class="outils-p outils-p-fort">Un seul endroit pour travailler, et l’information circule sans être recopiée.</p>
+    </div>
+
+    <figure class="hub">
+      <svg class="hub-liens" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <line x1="50" y1="50" x2="50" y2="16.6"></line>
+        <line x1="50" y1="50" x2="16.6" y2="50"></line>
+        <line x1="50" y1="50" x2="83.3" y2="50"></line>
+        <line x1="50" y1="50" x2="22" y2="83.3"></line>
+        <line x1="50" y1="50" x2="78" y2="83.3"></line>
+      </svg>
+      <div class="hub-centre">
+        <svg class="hub-motif" viewBox="0 0 60 60" aria-hidden="true" focusable="false">
+          {Array.from({ length: 9 }, (_, i) => (
+            <rect x={(i % 3) * 20 + 0.5} y={Math.floor(i / 3) * 20 + 0.5} width="19" height="19" />
+          ))}
+          <rect class="hub-motif-plein" x="40.5" y="40.5" width="19" height="19" />
+        </svg>
+        <span class="hub-centre-texte">Votre outil</span>
+      </div>
+      <ul role="list" class="hub-outils">
+        {outils.map((o) => (
+          <li class={`hub-outil hub-${o.zone}`}>{o.nom}</li>
+        ))}
+      </ul>
+      <figcaption class="sr-only">
+        Votre outil au centre, relié à vos documents, votre agenda, vos formations, votre messagerie et votre facturation.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .outils-inner {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .outils-title {
+    margin-top: var(--space-4);
+  }
+
+  .outils-p {
+    margin-top: var(--space-4);
+    max-width: 34rem;
+    font-size: var(--text-lg);
+    color: var(--fg-soft);
+  }
+
+  .outils-p-fort {
+    color: var(--fg);
+    font-weight: 500;
+  }
+
+  .hub {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas:
+      '. haut .'
+      'gauche centre droite'
+      'basg . basd';
+    align-items: center;
+    justify-items: center;
+    width: 100%;
+    max-width: 520px;
+    justify-self: center;
+    aspect-ratio: 1.4;
+  }
+
+  .hub-liens {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hub-liens line {
+    stroke: var(--teal-text-on-light);
+    stroke-opacity: 0.45;
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .hub-outils {
+    display: contents;
+  }
+
+  .hub-outil {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 8px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-sm);
+    color: var(--fg);
+    white-space: nowrap;
+  }
+
+  .hub-outil::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border: 1px solid var(--accent);
+  }
+
+  .hub-haut {
+    grid-area: haut;
+  }
+  .hub-gauche {
+    grid-area: gauche;
+  }
+  .hub-droite {
+    grid-area: droite;
+  }
+  .hub-basg {
+    grid-area: basg;
+  }
+  .hub-basd {
+    grid-area: basd;
+  }
+
+  .hub-centre {
+    grid-area: centre;
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-4);
+    background: var(--nuit-900);
+    border: 1px solid rgba(45, 212, 191, 0.55);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 16px 40px -20px rgba(15, 23, 42, 0.45);
+  }
+
+  .hub-motif {
+    width: 32px;
+    height: 32px;
+  }
+
+  .hub-motif rect {
+    fill: none;
+    stroke: rgba(248, 250, 252, 0.4);
+  }
+
+  .hub-motif .hub-motif-plein {
+    fill: var(--teal-500);
+    stroke: none;
+  }
+
+  .hub-centre-texte {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    color: var(--blanc-casse);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 479px) {
+    .hub {
+      aspect-ratio: 1.5;
+    }
+
+    .hub-outil {
+      padding: 6px 10px;
+      font-size: 0.8125rem;
+    }
+
+    .hub-outil::before {
+      display: none;
+    }
+
+    .hub-centre {
+      padding: var(--space-3);
+    }
+
+    .hub-motif {
+      width: 24px;
+      height: 24px;
+    }
+
+    .hub-centre-texte {
+      font-size: 1.0625rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .outils-inner {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      column-gap: var(--space-9);
+      align-items: center;
+    }
+  }
+</style>

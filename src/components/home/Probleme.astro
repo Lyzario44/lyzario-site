@@ -1,0 +1,246 @@
+---
+// Textes repris de l'offre Lyzario (diapositives « Le vrai problème » et « Ce que ça provoque »).
+const phrases = [
+  'Il est où, ce dossier ?',
+  'Tu peux me renvoyer l’info ?',
+  'Pense à relancer le client.',
+  'Tu peux vérifier ça ?',
+  'C’est quoi déjà, son statut ?',
+].map((p) => p.replace(/ ([?!:;])/g, ' $1'));
+
+const consequences = [
+  'Perte de temps',
+  'Oublis',
+  'Erreurs',
+  'Allers-retours',
+  'Dépendance à certaines personnes',
+  'Manque de visibilité',
+  'Fatigue des équipes',
+  'Surcharge mentale',
+  'Difficulté à grandir',
+];
+---
+
+<section class="section probleme theme-light" id="probleme" aria-labelledby="probleme-title">
+  <div class="container">
+    <div class="probleme-top">
+      <div class="probleme-intro">
+        <p class="label">Le vrai problème</p>
+        <h2 id="probleme-title" class="display display-lg probleme-title">
+          Vos équipes <em>perdent du temps partout</em>
+        </h2>
+        <ul class="sq-list probleme-points">
+          <li>L’information est éparpillée entre les mails, les fichiers, les messages et plusieurs outils.</li>
+          <li>Certaines tâches se font encore à la main, alors qu’un outil pourrait s’en charger.</li>
+        </ul>
+      </div>
+
+      <figure class="phrases">
+        <figcaption class="phrases-caption">Ce qu’on entend dans beaucoup d’entreprises</figcaption>
+        <ul role="list" class="phrases-list">
+          {phrases.map((phrase) => (
+            <li class="phrase">« {phrase} »</li>
+          ))}
+        </ul>
+      </figure>
+    </div>
+
+    <div class="effets">
+      <h3 class="display display-sm effets-title">Quand l’organisation n’est pas claire, tout le monde le ressent</h3>
+      <ul role="list" class="effets-grid">
+        {consequences.map((item, i) => (
+          <li class:list={['effet', { 'effet-fort': i === consequences.length - 1 }]}>{item}</li>
+        ))}
+      </ul>
+      <p class="effets-conclusion">
+        Avec un fonctionnement clair, vos équipes gardent leur énergie pour leur métier.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .probleme-top {
+    display: grid;
+    gap: var(--space-7);
+  }
+
+  .probleme-title {
+    margin-top: var(--space-4);
+    max-width: 11em;
+  }
+
+  .probleme-points {
+    margin-top: var(--space-5);
+    max-width: 34rem;
+    font-size: var(--text-lg);
+    gap: var(--space-4);
+  }
+
+  .phrases {
+    align-self: center;
+  }
+
+  .phrases-caption {
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+    margin-bottom: var(--space-4);
+  }
+
+  .phrases-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .phrase {
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px -12px rgba(15, 23, 42, 0.12);
+    font-size: var(--text-md);
+    color: var(--fg);
+  }
+
+  .effets {
+    margin-top: clamp(56px, 6vw, 88px);
+    padding-top: clamp(40px, 5vw, 64px);
+    border-top: 1px solid var(--border);
+  }
+
+  .effets-title {
+    max-width: 24ch;
+  }
+
+  .effets-grid {
+    margin-top: var(--space-6);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+
+  .effet {
+    display: flex;
+    align-items: flex-end;
+    min-height: 88px;
+    padding: var(--space-3);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    line-height: 1.35;
+    color: var(--fg);
+    overflow-wrap: anywhere;
+    hyphens: auto;
+  }
+
+  .effet-fort {
+    background: var(--nuit-900);
+    border-color: var(--nuit-900);
+    color: var(--blanc-casse);
+  }
+
+  .effets-conclusion {
+    margin-top: var(--space-6);
+    max-width: 40rem;
+    font-size: var(--text-xl);
+    color: var(--fg-soft);
+  }
+
+  @media (max-width: 639px) {
+    .phrase {
+      padding: 8px 12px;
+      font-size: 0.9375rem;
+    }
+
+    /* Mobile : trois phrases suffisent à faire passer l'idée */
+    .phrase:nth-child(n + 4) {
+      display: none;
+    }
+
+    .effets {
+      margin-top: var(--space-7);
+      padding-top: var(--space-6);
+    }
+
+    .effets-grid {
+      margin-top: var(--space-5);
+    }
+
+    .effet {
+      min-height: 68px;
+      padding: 10px;
+    }
+
+    .effets-conclusion {
+      margin-top: var(--space-5);
+      font-size: var(--text-lg);
+    }
+  }
+
+  @media (min-width: 640px) {
+    .phrase {
+      padding: 12px 18px;
+    }
+
+    .effet {
+      min-height: 104px;
+      padding: var(--space-5);
+      font-size: var(--text-md);
+    }
+
+    .effets-grid {
+      gap: var(--space-3);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .probleme-top {
+      grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+      column-gap: var(--space-9);
+    }
+
+    .phrases-list {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
+
+    .phrase:nth-child(1) {
+      transform: rotate(-1.5deg);
+    }
+    .phrase:nth-child(2) {
+      margin-left: 96px;
+      transform: rotate(1deg);
+    }
+    .phrase:nth-child(3) {
+      margin-left: 24px;
+      transform: rotate(-0.5deg);
+    }
+    .phrase:nth-child(4) {
+      margin-left: 136px;
+      transform: rotate(1.5deg);
+    }
+    .phrase:nth-child(5) {
+      margin-left: 48px;
+      transform: rotate(-1deg);
+    }
+
+    .effets {
+      display: grid;
+      grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+      column-gap: var(--space-9);
+      align-items: start;
+    }
+
+    .effets-grid {
+      margin-top: 0;
+      grid-row: span 2;
+    }
+
+    .effets-conclusion {
+      align-self: end;
+    }
+  }
+</style>

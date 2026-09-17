@@ -1,0 +1,170 @@
+---
+import Logo from './Logo.astro';
+import { site } from '../data/site';
+import { navigation } from '../lib/contenus';
+const year = new Date().getFullYear();
+const nav = await navigation();
+
+const legal = [
+  { label: 'Mentions légales', href: '/mentions-legales' },
+  { label: 'Confidentialité', href: '/confidentialite' },
+  { label: 'CGV', href: '/cgv' },
+];
+---
+
+<footer class="site-footer theme-dark">
+  <div class="container">
+    <div class="footer-grille">
+      <div class="footer-marque">
+        <a href="/" class="footer-logo" aria-label="Lyzario, retour à l'accueil"><Logo size={32} /></a>
+        <p class="footer-baseline">J’aide les PME à remettre leurs process au carré, à centraliser les informations et à automatiser les tâches répétitives.</p>
+      </div>
+
+      <nav class="footer-col" aria-label="Pages de l’accueil">
+        <p class="label footer-titre">Le site</p>
+        <ul role="list">
+          {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        </ul>
+      </nav>
+
+      <div class="footer-col">
+        <p class="label footer-titre">Contact</p>
+        <ul role="list">
+          <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li><a href={site.linkedinUrl} target="_blank" rel="noopener">LinkedIn<span class="sr-only"> (nouvel onglet)</span></a></li>
+          <li><a href={site.bookingUrl} target="_blank" rel="noopener">{site.ctaAudit}<span class="sr-only"> (nouvel onglet)</span></a></li>
+        </ul>
+        <address class="footer-adresse">
+          {site.address.locality} ({site.address.postalCode}), près de Nantes<br />Loire-Atlantique
+        </address>
+      </div>
+
+      <nav class="footer-col" aria-label="Informations légales">
+        <p class="label footer-titre">Informations</p>
+        <ul role="list">
+          {legal.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        </ul>
+      </nav>
+    </div>
+
+    <div class="footer-bas">
+      <p>© {year} {site.name}, {site.founder}</p>
+      <p class="footer-signature">
+        <span>{site.proof}</span>
+        <span class="footer-sep" aria-hidden="true">|</span>
+        <span class="footer-brand">Lyzario</span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--nuit-950);
+    border-top: 1px solid var(--border);
+    padding-block: var(--space-8) var(--space-6);
+  }
+
+  .footer-grille {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6) var(--space-5);
+  }
+
+  .footer-marque {
+    grid-column: 1 / -1;
+  }
+
+  @media (max-width: 1023px) {
+    /* Mobile et tablette : « Le site » et « Informations » côte à côte, contact en dessous */
+    .footer-grille > :nth-child(3) {
+      order: 3;
+      grid-column: 1 / -1;
+    }
+  }
+
+  .footer-logo {
+    text-decoration: none;
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+  }
+
+  .footer-baseline {
+    margin-top: var(--space-4);
+    max-width: 22rem;
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+  }
+
+  .footer-titre {
+    color: var(--fg-muted);
+    margin-bottom: var(--space-3);
+  }
+
+  .footer-col ul {
+    display: grid;
+  }
+
+  .footer-col a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: var(--text-sm);
+    color: var(--fg-soft);
+    text-decoration: none;
+    transition: color var(--dur) var(--ease);
+  }
+
+  .footer-col a:hover {
+    color: var(--fg);
+  }
+
+  .footer-adresse {
+    margin-top: var(--space-3);
+    font-style: normal;
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+  }
+
+  .footer-bas {
+    margin-top: var(--space-8);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+  }
+
+  .footer-signature {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-3);
+  }
+
+  .footer-signature > span:first-child {
+    white-space: nowrap;
+  }
+
+  .footer-brand {
+    font-weight: 600;
+    font-size: var(--text-xs);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fg);
+  }
+
+  @media (min-width: 1024px) {
+    .footer-grille {
+      grid-template-columns: minmax(0, 5fr) repeat(3, minmax(0, 2fr));
+    }
+
+    .footer-marque {
+      grid-column: auto;
+    }
+  }
+</style>

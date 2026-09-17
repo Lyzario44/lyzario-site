@@ -1,0 +1,183 @@
+---
+// Textes repris de l'offre Lyzario (diapositives « Ce que je fais » et « La méthode »).
+const observations = [
+  'comment les informations arrivent',
+  'où elles sont rangées',
+  'qui fait quoi',
+  'ce qui est saisi deux fois',
+  'où les équipes perdent du temps',
+  'ce qui peut être simplifié',
+];
+
+const etapes = [
+  {
+    titre: 'Je comprends votre fonctionnement',
+    texte: 'Je regarde comment vous travaillez aujourd’hui et où ça bloque.',
+  },
+  {
+    titre: 'On met tout au carré ensemble',
+    texte: 'On simplifie les étapes, qui fait quoi, et comment l’information passe.',
+  },
+  {
+    titre: 'Je construis votre système',
+    texte: 'Je rassemble ce dont vous avez besoin et j’automatise ce qui mérite de l’être.',
+  },
+  {
+    titre: 'Je vous rends autonome',
+    texte: 'Je forme les équipes, on teste ensemble et je reste présent pendant la mise en route.',
+  },
+];
+---
+
+<section class="section methode theme-dark grid-bg" id="methode" aria-labelledby="methode-title">
+  <div class="container">
+    <div class="methode-top">
+      <div>
+        <p class="label">Comment je travaille</p>
+        <h2 id="methode-title" class="display display-lg methode-title">
+          Je commence par regarder <em>comment vous travaillez vraiment</em>
+        </h2>
+      </div>
+
+      <div class="methode-regard">
+        <p class="methode-intro">Je n’ajoute pas un outil de plus. D’abord, je regarde&#8239;:</p>
+        <ul class="sq-list methode-observations">
+          {observations.map((item) => <li>{item}</li>)}
+        </ul>
+        <p class="principe">
+          <svg class="principe-grid" viewBox="0 0 90 90" aria-hidden="true" focusable="false">
+            {Array.from({ length: 9 }, (_, i) => (
+              <rect x={(i % 3) * 30 + 0.5} y={Math.floor(i / 3) * 30 + 0.5} width="29" height="29" />
+            ))}
+            <rect class="principe-fill" x="60.5" y="60.5" width="29" height="29" />
+          </svg>
+          <span class="display display-sm">On n’automatise pas ce qui n’est pas clair. <em>On remet d’abord tout au carré.</em></span>
+        </p>
+      </div>
+    </div>
+
+    <ol role="list" class="etapes" aria-label="La méthode, étape par étape">
+      {etapes.map((etape, i) => (
+        <li class:list={['etape', { 'etape-finale': i === etapes.length - 1 }]}>
+          <p class="label etape-num">Étape {String(i + 1).padStart(2, '0')}</p>
+          <h3 class="display display-sm etape-titre">{etape.titre}</h3>
+          <p class="etape-texte">{etape.texte}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .methode-top {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .methode-title {
+    margin-top: var(--space-4);
+    max-width: 12em;
+  }
+
+  .methode-intro {
+    font-size: var(--text-lg);
+    color: var(--fg-soft);
+  }
+
+  .methode-observations {
+    margin-top: var(--space-3);
+    gap: var(--space-2);
+  }
+
+  .principe {
+    margin-top: var(--space-5);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--border);
+    color: var(--fg);
+  }
+
+  .principe-grid {
+    flex: none;
+    width: 36px;
+    height: 36px;
+    margin-top: 4px;
+  }
+
+  .principe-grid rect {
+    fill: none;
+    stroke: rgba(248, 250, 252, 0.35);
+    stroke-width: 1.5;
+  }
+
+  .principe-grid .principe-fill {
+    fill: var(--teal-500);
+    stroke: none;
+  }
+
+  .etapes {
+    margin-top: clamp(40px, 5vw, 72px);
+    display: grid;
+    counter-reset: etape;
+  }
+
+  .etape {
+    padding: var(--space-4) 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .etape-finale .etape-num {
+    color: var(--teal-400);
+  }
+
+  .etape-titre {
+    margin-top: var(--space-2);
+    color: var(--fg);
+  }
+
+  .etape-texte {
+    margin-top: var(--space-2);
+    color: var(--fg-soft);
+  }
+
+  @media (min-width: 640px) {
+    .etapes {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-3);
+    }
+
+    .etape {
+      padding: var(--space-5);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .etape-finale {
+      border-color: rgba(45, 212, 191, 0.45);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .methode-top {
+      grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+      column-gap: var(--space-9);
+      align-items: end;
+    }
+
+    .methode-observations {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--space-5);
+    }
+
+    .etapes {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .etape {
+      padding: var(--space-6) var(--space-5);
+    }
+  }
+</style>

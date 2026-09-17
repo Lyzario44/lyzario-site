@@ -1,0 +1,100 @@
+---
+// Affiche un média réel. S'il manque : rien en production, un repère discret en local
+// (PUBLIC_AFFICHER_EMPLACEMENTS=true) pour situer l'emplacement.
+import { Image } from 'astro:assets';
+import { afficherEmplacements, type Media } from '../lib/medias';
+
+interface Props {
+  media: Media;
+  rond?: boolean;
+  sizes?: string;
+  priorite?: boolean;
+  class?: string;
+}
+
+const { media, rond = false, sizes = '(min-width: 1024px) 720px, 100vw', priorite = false, class: className } = Astro.props;
+const ratio = rond ? '1 / 1' : media.ratio;
+const rendu = media.src || afficherEmplacements;
+---
+
+{
+  rendu && (
+    <figure class:list={['media', { 'media-rond': rond }, className]} style={`--ratio:${ratio}`}>
+      {media.src ? (
+        <Image
+          class="media-img"
+          src={media.src}
+          alt={media.alt}
+          widths={rond ? [320, 640] : [480, 800, 1200, 1600]}
+          sizes={sizes}
+          formats={['avif', 'webp']}
+          loading={priorite ? 'eager' : 'lazy'}
+          decoding="async"
+        />
+      ) : (
+        <div class="media-repere" aria-hidden="true">
+          <span class="repere-titre">{media.titre}</span>
+          <span class="repere-fichier">src/assets/medias/{media.fichier}</span>
+        </div>
+      )}
+      {media.legende && <figcaption class="media-legende">{media.legende}</figcaption>}
+    </figure>
+  )
+}
+
+<style>
+  .media {
+    display: grid;
+    align-content: start;
+    gap: var(--space-3);
+    min-width: 0;
+  }
+
+  .media-img,
+  .media-repere {
+    width: 100%;
+    aspect-ratio: var(--ratio);
+    border-radius: var(--radius-lg);
+  }
+
+  .media-img {
+    object-fit: cover;
+    object-position: top left;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .media-rond .media-img,
+  .media-rond .media-repere {
+    border-radius: 50%;
+    object-position: center top;
+  }
+
+  /* Repère local uniquement, jamais publié */
+  .media-repere {
+    display: grid;
+    place-content: center;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    text-align: center;
+    background: repeating-linear-gradient(45deg, rgba(217, 154, 43, 0.08) 0 12px, transparent 12px 24px);
+    border: 1px dashed #d99a2b;
+  }
+
+  .repere-titre {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: #d99a2b;
+  }
+
+  .repere-fichier {
+    font-size: var(--text-xs);
+    color: var(--fg-muted);
+    overflow-wrap: anywhere;
+  }
+
+  .media-legende {
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+  }
+</style>

@@ -1,0 +1,158 @@
+---
+// Rendue uniquement si au moins une capture réelle ou une étude de cas publiée existe (voir index.astro).
+import MediaSlot from '../MediaSlot.astro';
+import { visible } from '../../lib/medias';
+import { capturesRealisations, casPublies } from '../../lib/contenus';
+
+const captures = capturesRealisations.filter(visible);
+const cas = await casPublies();
+const { theme = 'dark', separee = false } = Astro.props as { theme?: 'dark' | 'light'; separee?: boolean };
+---
+
+<section class:list={['section', 'realisations', `theme-${theme}`, { 'grid-bg': theme === 'dark', 'section-separee': separee }]} id="realisations" aria-labelledby="realisations-title">
+  <div class="container">
+    <div class="realisations-tete">
+      <div>
+        <p class="label">Réalisations</p>
+        <h2 id="realisations-title" class="display display-lg realisations-title">
+          Concrètement, <em>ça ressemble à ça</em>
+        </h2>
+      </div>
+      <p class="realisations-intro">Chaque outil est construit autour du fonctionnement réel de l’entreprise.</p>
+    </div>
+
+    {
+      captures.length > 0 && (
+        <div class:list={['captures', `captures-${Math.min(captures.length, 3)}`]}>
+          {captures.map((c, i) => (
+            <MediaSlot
+              media={c}
+              class={i === 0 ? 'capture-principale' : 'capture'}
+              sizes={i === 0 ? '(min-width: 1024px) 760px, 100vw' : '(min-width: 1024px) 420px, 100vw'}
+            />
+          ))}
+        </div>
+      )
+    }
+
+    {
+      cas.length > 0 && (
+        <ul role="list" class="cas-liste">
+          {cas.map((c) => (
+            <li class="cas-carte">
+              <p class="label">{c.data.client.secteur}</p>
+              <h3 class="display display-sm cas-titre">
+                <a href={`/realisations/${c.id}`} class="cas-lien">
+                  {c.data.titre}
+                </a>
+              </h3>
+              <p class="cas-resume">{c.data.resume}</p>
+              <p class="cas-lire" aria-hidden="true">Lire l’étude de cas</p>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .realisations-tete {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .realisations-title {
+    margin-top: var(--space-4);
+  }
+
+  .realisations-intro {
+    max-width: 26rem;
+    color: var(--fg-soft);
+  }
+
+  .captures {
+    margin-top: var(--space-6);
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .cas-liste {
+    margin-top: var(--space-6);
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .cas-carte {
+    position: relative;
+    padding: var(--space-5);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--dur) var(--ease);
+  }
+
+  .cas-carte:hover {
+    border-color: rgba(45, 212, 191, 0.5);
+  }
+
+  .cas-titre {
+    margin-top: var(--space-2);
+  }
+
+  .cas-lien {
+    text-decoration: none;
+  }
+
+  .cas-lien::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .cas-resume {
+    margin-top: var(--space-2);
+    color: var(--fg-soft);
+  }
+
+  .cas-lire {
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--accent);
+  }
+
+  @media (max-width: 767px) {
+    /* Mobile : une capture suffit, les autres restent sur ordinateur */
+    .captures :global(.capture) {
+      display: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .cas-liste {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .realisations-tete {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+      align-items: end;
+      column-gap: var(--space-8);
+    }
+
+    .realisations-intro {
+      justify-self: end;
+    }
+
+    .captures-2,
+    .captures-3 {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+    }
+
+    .captures-3 :global(.capture-principale) {
+      grid-row: span 2;
+    }
+  }
+</style>

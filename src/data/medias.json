@@ -1,0 +1,63 @@
+{
+  "_lisezmoi": "Déposez chaque image dans src/assets/medias/ avec exactement le nom indiqué dans « fichier ». Elle apparaît automatiquement sur le site. Tant qu'un fichier est absent, son bloc est masqué en production.",
+  "medias": [
+    {
+      "id": "portrait-jerome",
+      "fichier": "jerome-verger.jpg",
+      "section": "Qui je suis",
+      "titre": "Photo professionnelle de Jérôme",
+      "consigne": "Portrait, fond neutre, 1200 × 1200 px minimum.",
+      "ratio": "1 / 1",
+      "alt": "Jérôme Verger, fondateur de Lyzario"
+    },
+    {
+      "id": "exemple-maquette-audit",
+      "fichier": "exemple-maquette-audit.webp",
+      "section": "Audit offert",
+      "titre": "Exemple de maquette remise après un audit",
+      "consigne": "Maquette réelle d’un écran clé, anonymisée. 16:10, 1600 px de large minimum.",
+      "ratio": "16 / 10",
+      "alt": "Exemple de première maquette d’un écran clé, remise après un audit offert",
+      "legende": "Exemple de maquette remise après un audit"
+    },
+    {
+      "id": "capture-vue-dirigeant",
+      "fichier": "capture-vue-dirigeant.webp",
+      "section": "Côté équipes et dirigeant",
+      "titre": "Capture : vue dirigeant",
+      "consigne": "Tableau de bord d’un outil livré, données floutées. 16:10, 1600 px de large minimum.",
+      "ratio": "16 / 10",
+      "alt": "Vue d’ensemble d’un outil livré : dossiers en cours, bloqués et en attente de validation"
+    },
+    {
+      "id": "capture-suivi-interventions",
+      "fichier": "capture-suivi-interventions.webp",
+      "section": "Réalisations",
+      "titre": "Capture : suivi des interventions",
+      "consigne": "Vue principale d’un outil livré, données floutées. 16:10, 1600 px de large minimum.",
+      "ratio": "16 / 10",
+      "alt": "Outil de suivi des interventions construit pour une entreprise",
+      "legende": "Suivi des interventions en temps réel"
+    },
+    {
+      "id": "capture-acces-membres",
+      "fichier": "capture-acces-membres.webp",
+      "section": "Réalisations",
+      "titre": "Capture : accès par membre",
+      "consigne": "Gestion des utilisateurs et des droits, données floutées. 16:10.",
+      "ratio": "16 / 10",
+      "alt": "Écran de gestion des accès de chaque membre de l’équipe",
+      "legende": "Vous décidez à quoi chaque membre a accès"
+    },
+    {
+      "id": "capture-action-bouton",
+      "fichier": "capture-action-bouton.webp",
+      "section": "Réalisations",
+      "titre": "Capture : action en un bouton",
+      "consigne": "Écran où un bouton lance le travail en arrière-plan, données floutées. 16:10.",
+      "ratio": "16 / 10",
+      "alt": "Écran d’un outil où un bouton lance les tâches en arrière-plan",
+      "legende": "Un bouton, et les automatisations partent derrière"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+---
+// Monogramme LZ redessiné à l'identique depuis la charte (grille 800 × 800, marges internes 25 %).
+interface Props {
+  size?: number;
+  wordmark?: boolean;
+  class?: string;
+}
+const { size = 32, wordmark = true, class: className } = Astro.props;
+---
+
+<span class:list={['logo', className]}>
+  <svg class="logo-mark" width={size} height={size} viewBox="0 0 800 800" aria-hidden="true" focusable="false">
+    <rect width="800" height="800" rx="112" fill="#0F172A"></rect>
+    <path fill="#F8FAFC" d="M200 200H272V528H600V600H200Z"></path>
+    <path fill="#F8FAFC" d="M516 272H600L444 528H360Z"></path>
+    <rect x="360" y="200" width="240" height="72" fill="#2DD4BF"></rect>
+  </svg>
+  {wordmark && <span class="logo-wordmark">Lyzario</span>}
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-mark {
+    flex: none;
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px rgba(248, 250, 252, 0.08);
+  }
+
+  .logo-wordmark {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fg);
+  }
+</style>

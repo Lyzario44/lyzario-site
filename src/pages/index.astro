@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import Probleme from '../components/home/Probleme.astro';
+import Methode from '../components/home/Methode.astro';
+import Outils from '../components/home/Outils.astro';
+import Changement from '../components/home/Changement.astro';
+import Equipes from '../components/home/Equipes.astro';
+import Realisations from '../components/home/Realisations.astro';
+import Audit from '../components/home/Audit.astro';
+import Accompagnement from '../components/home/Accompagnement.astro';
+import Temoignages from '../components/home/Temoignages.astro';
+import Jerome from '../components/home/Jerome.astro';
+import Faq from '../components/home/Faq.astro';
+import AppelFinal from '../components/home/AppelFinal.astro';
+import { site } from '../data/site';
+import { audit } from '../data/offre';
+import { faq } from '../data/faq';
+import { temoignagesValides } from '../data/temoignages';
+import { realisationsVisibles } from '../lib/contenus';
+
+const avecRealisations = await realisationsVisibles();
+const avecTemoignages = temoignagesValides.length > 0;
+
+// Fin de page : les sections optionnelles masquées ne doivent pas casser l'alternance sombre / clair.
+// « Côté équipes » (clair) précède toujours cette suite ; l'appel final reste sombre.
+// « Tout vous appartient » est intégré en bas de l'accompagnement.
+type Theme = 'dark' | 'light';
+const suite = [
+  { Composant: Realisations, affichee: avecRealisations },
+  { Composant: Audit, affichee: true },
+  { Composant: Accompagnement, affichee: true },
+  { Composant: Temoignages, affichee: avecTemoignages },
+  { Composant: Jerome, affichee: true },
+  { Composant: Faq, affichee: true },
+]
+  .filter((s) => s.affichee)
+  .map((s, i) => ({ ...s, theme: (i % 2 === 0 ? 'dark' : 'light') as Theme }));
+const appelSeparee = suite.at(-1)?.theme === 'dark';
+
+const title = 'Outil sur mesure et automatisation pour PME | Lyzario Nantes';
+const description =
+  'Audit offert : une proposition pour structurer vos process et une première maquette de votre outil sur mesure, à vos couleurs. PME, près de Nantes.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ProfessionalService',
+      '@id': `${site.url}/#organisation`,
+      name: site.name,
+      url: site.url,
+      logo: `${site.url}/favicon.svg`,
+      email: site.email,
+      description,
+      founder: { '@id': `${site.url}/#jerome-verger` },
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: site.address.locality,
+        postalCode: site.address.postalCode,
+        addressRegion: site.address.department,
+        addressCountry: site.address.country,
+      },
+      areaServed: [
+        { '@type': 'City', name: 'Nantes' },
+        { '@type': 'City', name: 'Sainte-Pazanne' },
+        { '@type': 'AdministrativeArea', name: 'Loire-Atlantique' },
+        { '@type': 'Country', name: 'France' },
+      ],
+      sameAs: [site.linkedinUrl],
+    },
+    {
+      '@type': 'Person',
+      '@id': `${site.url}/#jerome-verger`,
+      name: site.founder,
+      jobTitle: 'Fondateur de Lyzario',
+      worksFor: { '@id': `${site.url}/#organisation` },
+      sameAs: [site.linkedinUrl],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${site.url}/#site`,
+      name: site.name,
+      url: site.url,
+      inLanguage: 'fr-FR',
+      publisher: { '@id': `${site.url}/#organisation` },
+    },
+    {
+      '@type': 'Service',
+      '@id': `${site.url}/#service`,
+      name: 'Mise en place d’un outil sur mesure pour PME',
+      serviceType: 'Centralisation des informations et automatisation des tâches répétitives',
+      provider: { '@id': `${site.url}/#organisation` },
+      areaServed: { '@type': 'Country', name: 'France' },
+      offers: [
+        {
+          '@type': 'Offer',
+          name: 'Audit offert',
+          description: audit.promesse,
+          price: 0,
+          priceCurrency: 'EUR',
+        },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${site.url}/#faq`,
+      mainEntity: faq.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: { '@type': 'Answer', text: item.reponse },
+      })),
+    },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} jsonLd={jsonLd}>
+  <Hero />
+  <Probleme />
+  <Methode />
+  <Outils />
+  <Changement />
+  <Equipes />
+  {suite.map(({ Composant, theme }) => <Composant theme={theme} />)}
+  <AppelFinal separee={appelSeparee} />
+</BaseLayout>

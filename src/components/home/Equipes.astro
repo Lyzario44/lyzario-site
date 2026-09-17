@@ -1,0 +1,151 @@
+---
+// Diapositives « Côté équipes » et « Côté dirigeant » de l'offre, fusionnées.
+import MediaSlot from '../MediaSlot.astro';
+import { media, visible } from '../../lib/medias';
+
+const capture = media('capture-vue-dirigeant');
+const avecCapture = visible(capture);
+
+const roles = [
+  { nom: 'Commercial', voit: 'Ses clients et ses opportunités', tags: ['Clients', 'Devis', 'Relances'] },
+  { nom: 'Administratif', voit: 'Les dossiers et les documents', tags: ['Dossiers', 'Factures', 'Contrats'] },
+  {
+    nom: 'Dirigeant',
+    voit: 'Ce qui est en cours, ce qui bloque, ce qui attend sa validation',
+    tags: ['Vue d’ensemble', 'Indicateurs', 'Validations'],
+  },
+];
+---
+
+<section class="section equipes theme-light" id="equipes" aria-labelledby="equipes-title">
+  <div class:list={['container', 'equipes-inner', { 'avec-capture': avecCapture }]}>
+    <div class="equipes-texte">
+      <p class="label">Côté équipes</p>
+      <h2 id="equipes-title" class="display display-lg equipes-title">
+        Chacun voit <em>ce dont il a besoin</em>
+      </h2>
+      <p class="equipes-p">
+        Pas besoin d’apprendre dix nouveaux outils. Chaque personne a son espace, et vous décidez qui peut voir, modifier ou valider quoi.
+      </p>    </div>
+
+    {avecCapture && <MediaSlot media={capture} class="equipes-capture" sizes="(min-width: 1024px) 640px, 100vw" />}
+
+    <ul role="list" class="roles" aria-label="Exemples d’espaces par rôle">
+      {roles.map((role, i) => (
+        <li class:list={['role', { 'role-dirigeant': i === roles.length - 1 }]}>
+          <p class="role-nom">{role.nom}</p>
+          <p class="role-voit">{role.voit}</p>
+          <ul role="list" class="role-tags">
+            {role.tags.map((tag) => <li>{tag}</li>)}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .equipes-inner {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .equipes-title {
+    margin-top: var(--space-4);
+    max-width: 12em;
+  }
+
+  .equipes-p {
+    margin-top: var(--space-4);
+    max-width: 34rem;
+    font-size: var(--text-lg);
+    color: var(--fg-soft);
+  }
+
+  .equipes-conclusion {
+    margin-top: var(--space-5);
+    max-width: 22em;
+  }
+
+  .roles {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .role {
+    padding: var(--space-4);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .role-dirigeant {
+    background: var(--nuit-900);
+    border-color: var(--nuit-900);
+    --accent: var(--teal-500);
+    --fg: var(--blanc-casse);
+    --fg-soft: var(--slate-300);
+    --border: rgba(248, 250, 252, 0.16);
+  }
+
+  .role-nom {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg);
+  }
+
+  .role-nom::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+  }
+
+  .role-voit {
+    margin-top: var(--space-2);
+    color: var(--fg-soft);
+  }
+
+  .role-tags {
+    margin-top: var(--space-3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .role-tags li {
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-sm);
+    color: var(--fg);
+  }
+
+  @media (min-width: 768px) {
+    .roles {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-3);
+    }
+
+    .role {
+      padding: var(--space-5);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .equipes-inner.avec-capture {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      column-gap: var(--space-8);
+      align-items: center;
+    }
+
+    .roles {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

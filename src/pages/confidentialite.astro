@@ -1,0 +1,44 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { site } from '../data/site';
+---
+
+<PageLayout
+  title="Politique de confidentialité | Lyzario"
+  description="Comment Lyzario utilise les données transmises par email ou lors d’une prise de rendez-vous, et comment exercer vos droits."
+  label="Informations"
+  h1="Politique de confidentialité"
+  miseAJour="17 septembre 2026"
+>
+  <h2>Responsable du traitement</h2>
+  <p>
+    {site.founder} ({site.name}), {site.address.postalCode} {site.address.locality}. Contact&#8239;: <a href={`mailto:${site.email}`}>{site.email}</a>.
+  </p>
+
+  <h2>Données collectées</h2>
+  <p>Ce site ne comporte pas de formulaire. Des données vous concernant peuvent être recueillies dans deux cas&#8239;:</p>
+  <ul>
+    <li>quand vous m’écrivez par email&#8239;: les informations contenues dans votre message&#8239;;</li>
+    <li>
+      quand vous réservez un rendez-vous&#8239;: la prise de rendez-vous se fait sur Cal.com, un service tiers. Les informations que vous y saisissez sont traitées selon la <a href="https://cal.com/privacy" rel="noopener">politique de confidentialité de Cal.com</a>.
+    </li>
+  </ul>
+
+  <h2>Utilisation</h2>
+  <p>
+    Ces données servent uniquement à répondre à vos demandes et à gérer la relation commerciale. Elles ne sont pas cédées à des tiers.
+  </p>
+
+  <h2>Cookies et mesure d’audience</h2>
+  <p>Ce site ne dépose aucun cookie publicitaire ni de mesure d’audience.</p>
+
+  <h2>Hébergement</h2>
+  <p>
+    Le site est hébergé par Vercel Inc. (États-Unis), qui peut enregistrer des données techniques de connexion nécessaires au fonctionnement et à la sécurité du service.
+  </p>
+
+  <h2>Vos droits</h2>
+  <p>
+    Vous disposez d’un droit d’accès, de rectification, d’effacement et d’opposition sur vos données. Pour l’exercer, écrivez à <a href={`mailto:${site.email}`}>{site.email}</a>. Vous pouvez aussi adresser une réclamation à la <a href="https://www.cnil.fr" rel="noopener">CNIL</a>.
+  </p>
+</PageLayout>
