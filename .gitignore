@@ -7,3 +7,6 @@ dist/
 npm-debug.log*
 .DS_Store
 .playwright-mcp/
+
+# Captures sources non anonymisees : ne doivent jamais etre commitees
+src/assets/medias/_sources/
