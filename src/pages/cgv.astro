@@ -1,31 +1,377 @@
 ---
-// Non indexée. data-bloquant (invisible) empêche la fusion tant que les CGV complètes ne sont pas fournies.
-// Aucun tarif n'est publié : le périmètre et la proposition commerciale sont établis après l'audit.
+// Conditions générales de vente — clientèle exclusivement professionnelle.
+// Page non indexée et hors sitemap (voir astro.config.mjs), mais accessible depuis le pied de page :
+// les CGV doivent pouvoir être communiquées à tout professionnel qui en fait la demande (art. L. 441-1 II du code de commerce).
+//
+// Règles tenues par cette page :
+// - Aucun montant : les prix figurent exclusivement dans le devis (contrôle : npm run check:tarifs).
+//   L'indemnité forfaitaire de recouvrement est écrite en toutes lettres, ce qui satisfait l'obligation de
+//   l'art. L. 441-10 sans déclencher le garde-fou tarifaire.
+// - data-bloquant sur l'article 24 : le plafond de responsabilité doit être validé par un juriste avant toute fusion.
+//
+// ALERTE INTERNE — signature hors établissement :
+// les devis sont normalement envoyés et signés à distance. Si un devis venait à être signé lors d'un
+// rendez-vous physique chez un client employant cinq salariés ou moins, et dont l'objet du contrat
+// n'entre pas dans le champ de son activité principale, l'art. L. 221-3 du code de la consommation
+// étend à ce client un droit de rétractation de quatorze jours. Cette hypothèse appelle une vérification
+// au cas par cas et n'est pas traitée par les présentes CGV.
 import PageLayout from '../layouts/PageLayout.astro';
 import { site } from '../data/site';
-import { propositionApresAudit } from '../data/offre';
 
-const cgvCompletes = false;
+// Le plafond de responsabilité de l'article 24 reste à confirmer par un professionnel du droit.
+const plafondValideParJuriste = false;
 ---
 
 <PageLayout
   title="Conditions générales de vente | Lyzario"
-  description="Conditions générales de vente des prestations Lyzario : audit offert, mise en place d’un outil sur mesure et maintenance."
+  description="Conditions générales de vente des prestations Lyzario : audit offert, conception d’outils sur mesure, automatisations, abonnement technique et maintenance. Clientèle professionnelle."
   label="Informations"
   h1="Conditions générales de vente"
+  intro="Prestations réservées aux clients professionnels."
   noindex
+  miseAJour={site.cgvVersion}
 >
-  <h2>Prestations</h2>
-  <ul>
-    <li>Audit&#8239;: offert et sans engagement, réservé aux entreprises dont le besoin correspond au périmètre de Lyzario.</li>
-    <li>Accompagnement&#8239;: {propositionApresAudit.charAt(0).toLowerCase() + propositionApresAudit.slice(1)} Toute demande complémentaire ou évolution importante fait l’objet d’un devis séparé.</li>
-    <li>Maintenance&#8239;: facultative après les 30 jours de stabilisation, sans engagement.</li>
-  </ul>
+  <p>
+    <strong>Version du {site.cgvVersion}.</strong> Les présentes conditions générales de vente (ci-après «&#8239;CGV&#8239;»)
+    sont celles de&#8239;:
+  </p>
+  <address>
+    <strong>{site.legalName}</strong>, exerçant sous le nom commercial {site.name}<br />
+    {site.statut}<br />
+    SIRET&#8239;: {site.siret}<br />
+    {site.address.street}<br />
+    {site.address.postalCode} {site.address.locality}, France<br />
+    Téléphone&#8239;: <a href={`tel:${site.phoneHref}`}>{site.phone}</a><br />
+    Email&#8239;: <a href={`mailto:${site.email}`}>{site.email}</a><br />
+    {site.tva}
+  </address>
 
-  <h2>Conditions d’intervention</h2>
-  <p data-bloquant={cgvCompletes ? undefined : 'CGV complètes à fournir'}>
-    Les conditions (tarifs, délais, modalités) vous sont communiquées avant tout engagement.
+  <h2>Article 1 — Objet et champ d’application</h2>
+  <p>
+    Les présentes CGV encadrent les prestations réalisées par Lyzario&#8239;: audit initial offert, analyse et
+    structuration des processus, conception d’interfaces et d’outils métiers sur mesure, automatisations et
+    intégrations, paramétrage d’outils tiers, mise en production, formation à la prise en main de la solution
+    livrée, abonnement technique et maintenance facultative.
+  </p>
+  <p>
+    <strong>Ces prestations sont exclusivement réservées aux clients professionnels</strong> agissant dans le cadre de
+    leur activité professionnelle. Elles ne sont pas proposées aux consommateurs au sens du code de la consommation.
   </p>
 
-  <p>Pour toute question&#8239;: <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+  <h2>Article 2 — Documents contractuels et acceptation</h2>
+  <ul>
+    <li>La relation contractuelle est régie par le devis signé et ses conditions particulières, puis par les présentes CGV.</li>
+    <li>En cas de différence, <strong>le devis signé et ses conditions particulières priment</strong> sur les CGV.</li>
+    <li>La signature du devis emporte acceptation sans réserve des CGV <strong>dans leur version en vigueur à la date de cette signature</strong>.</li>
+    <li>Les CGV sont communiquées à tout professionnel qui en fait la demande, sur support durable.</li>
+  </ul>
+
+  <h2>Article 3 — Audit initial offert</h2>
+  <p>
+    L’audit initial est gratuit et sans engagement. Il est réservé aux entreprises dont le besoin correspond au
+    périmètre d’intervention de Lyzario, qui reste libre de ne pas y donner suite.
+  </p>
+  <p>Selon les cas, il peut comprendre&#8239;:</p>
+  <ul>
+    <li>un échange de découverte&#8239;;</li>
+    <li>l’identification des principaux points de friction&#8239;;</li>
+    <li>une proposition synthétique de structuration&#8239;;</li>
+    <li>une maquette conceptuelle et non fonctionnelle aux couleurs du prospect.</li>
+  </ul>
+  <p>L’audit et la maquette&#8239;:</p>
+  <ul>
+    <li>ne constituent pas un cahier des charges complet&#8239;;</li>
+    <li>ne constituent pas une application fonctionnelle&#8239;;</li>
+    <li>ne garantissent pas la faisabilité définitive du projet avant analyse complète.</li>
+  </ul>
+
+  <h2>Article 4 — Maquette et proposition&#8239;: propriété</h2>
+  <p>
+    La proposition et la maquette remises à l’issue de l’audit restent des éléments de démonstration et de
+    proposition commerciale tant qu’aucun devis n’a été signé. Elles demeurent la propriété de Lyzario
+    et <strong>ne transfèrent au prospect aucun droit de les reproduire, de les exploiter ou de les faire réaliser
+    par un tiers</strong> avant signature d’un devis.
+  </p>
+
+  <h2>Article 5 — Devis, commande et prix</h2>
+  <ul>
+    <li>Les prestations retenues et leur prix sont définis dans un devis. <strong>Aucun tarif n’est publié&#8239;: les prix applicables figurent exclusivement dans le devis.</strong></li>
+    <li>Sauf indication différente portée sur le devis, celui-ci est valable trente jours à compter de sa date d’émission.</li>
+    <li>La commande devient ferme après signature du devis et réception de l’acompte.</li>
+    <li>Les prix sont exprimés en euros et nets de TVA&#8239;: {site.tva}.</li>
+    <li>Les abonnements, licences et services tiers nécessaires au projet sont ceux indiqués au devis&#8239;; leurs conditions propres s’appliquent (article 12).</li>
+  </ul>
+
+  <h2>Article 6 — Paiement</h2>
+  <ul>
+    <li>Sauf conditions particulières différentes prévues au devis&#8239;: <strong>acompte de 50&#8239;% payable à la signature du devis</strong>.</li>
+    <li>Le <strong>solde de 50&#8239;%</strong> est facturé à la mise à disposition de la solution et payable à réception de la facture.</li>
+    <li>L’abonnement technique et la maintenance sont facturés selon la périodicité prévue au devis.</li>
+    <li>Le règlement s’effectue par virement bancaire, sauf modalité différente prévue au devis.</li>
+  </ul>
+
+  <h2>Article 7 — Retard de paiement</h2>
+  <p>Conformément aux articles L.&nbsp;441-10 et D.&nbsp;441-5 du code de commerce&#8239;:</p>
+  <ul>
+    <li>
+      Toute somme non réglée à échéance donne lieu à des <strong>pénalités de retard exigibles sans qu’un rappel soit
+      nécessaire</strong>, calculées au taux d’intérêt appliqué par la Banque centrale européenne à son opération de
+      refinancement la plus récente, majoré de dix points de pourcentage.
+    </li>
+    <li>
+      Tout retard de paiement entraîne également, de plein droit, une <strong>indemnité forfaitaire pour frais de
+      recouvrement de quarante euros</strong>.
+    </li>
+    <li>
+      Lorsque les frais de recouvrement effectivement exposés sont supérieurs à cette indemnité forfaitaire, une
+      indemnisation complémentaire peut être demandée sur justificatifs.
+    </li>
+    <li>
+      En cas d’impayé, Lyzario peut <strong>suspendre les prestations et services en cours</strong>, y compris l’abonnement
+      technique et la maintenance, après notification écrite restée sans effet. La suspension ne donne lieu à aucune
+      indemnité et ne dispense pas le client du paiement des sommes dues.
+    </li>
+  </ul>
+
+  <h2>Article 8 — Nature des obligations</h2>
+  <p>
+    Lyzario est tenu à une <strong>obligation de moyens</strong> et non à une obligation de résultat. Lyzario met en œuvre le
+    soin et les compétences attendus d’un professionnel de son domaine pour réaliser les prestations décrites au devis.
+  </p>
+
+  <h2>Article 9 — Collaboration du client</h2>
+  <p>La réalisation suppose une collaboration active du client, qui s’engage à&#8239;:</p>
+  <ul>
+    <li>désigner un interlocuteur disposant du pouvoir de décision nécessaire&#8239;;</li>
+    <li>transmettre en temps utile les informations, contenus, validations et accès requis&#8239;;</li>
+    <li>répondre aux demandes de validation dans des délais raisonnables.</li>
+  </ul>
+  <p>
+    Le client reste <strong>responsable de l’exactitude des informations, données et règles métiers qu’il transmet</strong>.
+    Tout retard qui lui est imputable décale le planning à due concurrence, sans qu’il puisse en résulter une
+    responsabilité de Lyzario.
+  </p>
+
+  <h2>Article 10 — Délais</h2>
+  <p>
+    Les délais annoncés sont <strong>indicatifs</strong>. Ils dépendent notamment de la transmission par le client des
+    informations, contenus, validations et accès nécessaires, ainsi que de la disponibilité des services tiers. Leur
+    dépassement ne donne lieu à aucune pénalité ni indemnité à la charge de Lyzario.
+  </p>
+
+  <h2>Article 11 — Évolutions et demandes hors périmètre</h2>
+  <p>
+    Toute évolution ou demande qui n’entre pas dans le périmètre décrit au devis fait l’objet d’un avenant ou d’un
+    devis complémentaire, accepté avant réalisation.
+  </p>
+
+  <h2>Article 12 — Services et plateformes tiers</h2>
+  <p>
+    Les solutions livrées peuvent notamment reposer sur WeWeb, Supabase, Airtable, n8n, Make, Google Workspace,
+    Pennylane, des interfaces de programmation telles qu’OpenAI, ainsi que sur d’autres services définis au devis.
+  </p>
+  <ul>
+    <li>Ces services restent soumis à <strong>leurs propres licences, tarifs, limitations, conditions d’utilisation et niveaux de disponibilité</strong>.</li>
+    <li>Lyzario ne garantit ni leur disponibilité permanente, ni le maintien de leurs tarifs, de leurs fonctionnalités ou de leurs interfaces techniques.</li>
+    <li>Les comptes correspondants sont créés au nom du client ou lui sont remis dans les conditions de l’article 19&#8239;; les abonnements afférents sont à sa charge, sauf mention contraire au devis.</li>
+    <li>Toute évolution, limitation ou interruption imposée par un service tiers, ainsi que les travaux d’adaptation qu’elle rend nécessaires, sont hors périmètre et peuvent faire l’objet d’un devis complémentaire.</li>
+  </ul>
+
+  <h2>Article 13 — Automatisations et traitements automatisés</h2>
+  <p>
+    Les automatisations et, le cas échéant, les traitements reposant sur des systèmes d’intelligence artificielle
+    produisent des résultats que le client doit pouvoir contrôler. En conséquence&#8239;:
+  </p>
+  <ul>
+    <li>les <strong>décisions métiers importantes</strong> et les résultats produits par une automatisation ou une intelligence artificielle doivent pouvoir faire l’objet d’une <strong>validation humaine</strong> par le client&#8239;;</li>
+    <li>il appartient au client de vérifier les traitements sensibles avant toute exploitation&#8239;;</li>
+    <li>Lyzario ne répond pas des conséquences d’une exploitation de ces résultats sans vérification.</li>
+  </ul>
+
+  <h2>Article 14 — Livraison, recette et acceptation</h2>
+  <ul>
+    <li>La livraison intervient lorsque la solution prévue au devis est mise à disposition du client.</li>
+    <li>Le client dispose de <strong>dix jours ouvrés</strong> à compter de la mise à disposition pour signaler par écrit les non-conformités par rapport au devis, de façon précise et motivée.</li>
+    <li>À défaut de réserves précises formulées dans ce délai, <strong>la livraison est réputée acceptée</strong>.</li>
+    <li>Les réserves portant sur une partie de la livraison <strong>ne font pas obstacle au paiement des parties livrées et conformes</strong>.</li>
+    <li>Lyzario corrige les non-conformités dûment signalées dans un délai raisonnable.</li>
+  </ul>
+
+  <h2>Article 15 — Période de stabilisation</h2>
+  <ul>
+    <li>Une période de stabilisation de <strong>trente jours</strong> commence à la validation de la recette ou à l’expiration du délai de recette prévu à l’article 14.</li>
+    <li>Elle couvre <strong>uniquement la correction des anomalies et non-conformités par rapport au devis</strong>.</li>
+    <li>Elle ne couvre pas les nouvelles fonctionnalités, les changements de besoin ni les évolutions de périmètre, qui relèvent de l’article 11.</li>
+  </ul>
+
+  <h2>Article 16 — Abonnement technique</h2>
+  <ul>
+    <li>L’abonnement technique couvre le fonctionnement technique et l’hébergement de l’interface. Il est <strong>distinct de la maintenance</strong>.</li>
+    <li>Son prix et son périmètre figurent dans le devis.</li>
+    <li>Il est <strong>sans engagement</strong> et peut être résilié à tout moment, par écrit, avec effet à la fin de la période mensuelle déjà payée. Les sommes déjà réglées restent acquises.</li>
+    <li>En cas de résiliation, <strong>le client conserve ses comptes, ses données et sa solution</strong>.</li>
+    <li>Il lui revient alors de <strong>reprendre directement à sa charge les abonnements et services nécessaires au fonctionnement</strong> de la solution.</li>
+    <li><strong>La résiliation ne garantit pas le maintien en ligne de la solution</strong> si ces abonnements techniques ne sont pas repris ou renouvelés par le client.</li>
+  </ul>
+
+  <h2>Article 17 — Maintenance facultative</h2>
+  <p>
+    La maintenance est facultative, distincte de l’abonnement technique et sans engagement. Son périmètre et son prix
+    sont définis dans le devis. Selon le devis, elle peut comprendre&#8239;:
+  </p>
+  <ul>
+    <li>la surveillance des automatisations&#8239;;</li>
+    <li>la correction des bugs affectant les éléments livrés&#8239;;</li>
+    <li>la maintenance technique&#8239;;</li>
+    <li>le support&#8239;;</li>
+    <li>de petits ajustements précisément encadrés.</li>
+  </ul>
+  <p>
+    Sauf périmètre différent prévu au devis, les petits ajustements sont <strong>limités à une heure de travail cumulée par
+    mois</strong>. Ils ne doivent modifier ni la structure des données, ni les processus principaux, ni les droits d’accès,
+    ni les intégrations, ni l’architecture de la solution. <strong>Le temps non utilisé n’est pas reportable</strong> d’un mois
+    sur l’autre. Toute demande dépassant ce cadre fait l’objet d’un devis complémentaire.
+  </p>
+  <p>La maintenance ne comprend pas&#8239;:</p>
+  <ul>
+    <li>les nouvelles fonctionnalités&#8239;;</li>
+    <li>les changements importants de processus&#8239;;</li>
+    <li>la refonte d’une partie de l’application&#8239;;</li>
+    <li>les interventions rendues nécessaires par une mauvaise utilisation&#8239;;</li>
+    <li>les pannes ou changements imposés par un service tiers&#8239;;</li>
+    <li>les migrations importantes.</li>
+  </ul>
+  <p>
+    La maintenance peut être résiliée à tout moment, par écrit, avec effet à la fin de la période mensuelle déjà payée.
+  </p>
+
+  <h2>Article 18 — Formation</h2>
+  <p>
+    La formation correspond à la <strong>prise en main de l’outil livré</strong> et est incluse lorsqu’elle figure au devis.
+    Elle ne constitue pas une action de formation professionnelle vendue de façon autonome&#8239;; <strong>aucun financement par
+    un opérateur de compétences n’est proposé</strong>.
+  </p>
+
+  <h2>Article 19 — Comptes, accès et propriété</h2>
+  <ul>
+    <li>Les comptes nécessaires au fonctionnement de la solution sont <strong>créés au nom du client</strong> ou lui sont <strong>transférés ou remis à la livraison</strong>.</li>
+    <li>Le client conserve ses données, ses contenus, ses accès, ses comptes, son projet WeWeb, son projet Supabase ou sa base de données.</li>
+    <li>Le client contrôle sa solution et peut continuer à l’utiliser sans dépendre contractuellement de Lyzario, sous réserve de l’article 16.</li>
+    <li>
+      Les livrables réalisés spécifiquement pour le client lui sont cédés, ou concédés selon ce que prévoit le
+      devis, <strong>après paiement intégral du prix</strong>. Le devis précise les droits transmis ainsi que
+      l’étendue, la destination, le lieu et la durée de l’exploitation autorisée.
+    </li>
+    <li>
+      Lyzario <strong>conserve son savoir-faire, ses méthodes, ses modèles, ses bibliothèques et ses composants génériques
+      réutilisables</strong>, y compris lorsqu’ils ont été mis en œuvre dans le cadre du projet.
+    </li>
+    <li>Les plateformes, composants open source et logiciels tiers restent soumis à leurs propres licences.</li>
+  </ul>
+
+  <h2>Article 20 — Réversibilité</h2>
+  <ul>
+    <li>À la fin de la collaboration, les <strong>données et accès du client lui sont restitués sans frais</strong>.</li>
+    <li>Toute migration, adaptation, export de code, transfert complexe ou accompagnement supplémentaire peut faire l’objet d’un devis distinct.</li>
+  </ul>
+
+  <h2>Article 21 — Confidentialité</h2>
+  <ul>
+    <li>Chaque partie s’engage à ne pas divulguer les informations confidentielles reçues de l’autre et à ne les utiliser que pour l’exécution du contrat. Cet engagement est <strong>réciproque</strong>.</li>
+    <li>Il s’applique pendant la durée du contrat et <strong>cinq ans après son terme</strong>.</li>
+    <li>Les informations constituant un <strong>secret d’affaires</strong> restent protégées aussi longtemps qu’elles conservent ce caractère.</li>
+    <li>Sont exclues de cet engagement les informations déjà publiques, celles légitimement obtenues de façon indépendante, et celles dont la divulgation est imposée par la loi ou une décision de justice.</li>
+  </ul>
+
+  <h2>Article 22 — Référencement et communication</h2>
+  <p>
+    Aucun nom, logo, témoignage ni étude de cas concernant le client ne peut être publié par
+    Lyzario <strong>sans son autorisation écrite préalable et explicite</strong>. Cette autorisation précise les
+    éléments concernés et peut être retirée à tout moment, pour l’avenir.
+  </p>
+
+  <h2>Article 23 — Données personnelles</h2>
+  <p>
+    Lorsque Lyzario traite des données à caractère personnel pour le compte du client, le client agit en qualité de
+    responsable de traitement et Lyzario en qualité de sous-traitant. Les conditions de ces traitements sont définies
+    dans <strong>l’annexe de sous-traitance</strong> annexée au devis, conforme à l’article 28 du règlement (UE) 2016/679.
+  </p>
+  <p>
+    Les traitements relatifs aux visiteurs du site lyzario.fr sont décrits dans
+    la <a href="/confidentialite">politique de confidentialité</a>, qui ne couvre pas les traitements réalisés pour
+    le compte des clients.
+  </p>
+
+  <h2>Article 24 — Responsabilité</h2>
+  <p data-bloquant={plafondValideParJuriste ? undefined : 'CGV article 24 : plafond de responsabilité à faire valider par un juriste'}>
+    La responsabilité de Lyzario ne peut être engagée qu’en cas de faute prouvée et dans les limites suivantes&#8239;:
+  </p>
+  <ul>
+    <li>
+      Sauf disposition légale impérative contraire, la responsabilité de Lyzario est limitée au <strong>total des sommes
+      effectivement payées par le client au titre de la prestation concernée au cours des douze mois précédant le fait
+      générateur</strong>.
+    </li>
+    <li>
+      Sont exclus, dans les limites permises par la loi, les <strong>dommages indirects</strong>, notamment la perte
+      d’exploitation, la perte de chiffre d’affaires, la perte de clientèle, la perte de données et le préjudice
+      commercial.
+    </li>
+    <li>
+      Lyzario ne répond pas des conséquences des <strong>interruptions, limitations, évolutions ou défaillances des services
+      tiers</strong> mentionnés à l’article 12, dont il ne maîtrise ni le fonctionnement ni la disponibilité.
+    </li>
+    <li>
+      Le client demeure responsable de ses données, de ses instructions, de ses contenus, de ses usages et
+      de <strong>ses sauvegardes</strong>. Il lui appartient de mettre en place les sauvegardes adaptées à ses
+      enjeux.
+    </li>
+    <li>Le client demeure tenu de la vérification des traitements sensibles prévue à l’article 13.</li>
+  </ul>
+  <p>
+    Les présentes limitations ne s’appliquent pas aux cas dans lesquels la responsabilité ne peut légalement être
+    limitée, notamment en cas de dol ou de faute lourde, ni aux dommages corporels.
+  </p>
+
+  <h2>Article 25 — Force majeure</h2>
+  <p>
+    Aucune des parties ne peut être tenue responsable d’un manquement résultant d’un événement de force majeure au
+    sens de l’article 1218 du code civil. Les obligations affectées sont suspendues pendant la durée de
+    l’événement&#8239;; si celui-ci se prolonge au-delà de soixante jours, chaque partie peut résilier le contrat par
+    écrit, sans indemnité, les prestations déjà réalisées restant dues.
+  </p>
+
+  <h2>Article 26 — Résiliation</h2>
+  <ul>
+    <li>En cas de manquement d’une partie à ses obligations, l’autre partie peut résilier le contrat par écrit après mise en demeure restée sans effet pendant trente jours.</li>
+    <li>Lyzario peut résilier en cas d’impayé persistant, dans les conditions de l’article 7.</li>
+    <li>En cas de résiliation, les prestations réalisées et les frais engagés restent dus&#8239;; les sommes déjà versées restent acquises à hauteur des travaux accomplis.</li>
+    <li>Les articles 19, 21, 22, 23 et 24 survivent à la fin du contrat, quelle qu’en soit la cause.</li>
+  </ul>
+
+  <h2>Article 27 — Dispositions diverses</h2>
+  <ul>
+    <li>Lyzario peut recourir à des prestataires pour l’exécution de tout ou partie des prestations, sous sa responsabilité.</li>
+    <li>Le contrat ne peut être cédé par le client sans l’accord écrit préalable de Lyzario.</li>
+    <li>Si une stipulation des CGV est déclarée nulle ou réputée non écrite, les autres stipulations conservent leur plein effet.</li>
+    <li>Le fait de ne pas se prévaloir d’un manquement ne vaut pas renonciation à s’en prévaloir ultérieurement.</li>
+    <li>Le devis signé, ses conditions particulières, ses annexes et les présentes CGV expriment l’intégralité de l’accord des parties.</li>
+  </ul>
+
+  <h2>Article 28 — Droit applicable et litiges</h2>
+  <p>Les présentes CGV sont régies par le <strong>droit français</strong>.</p>
+  <p>
+    En cas de différend, les parties s’engagent à rechercher d’abord une <strong>solution amiable</strong>&#8239;: la partie la
+    plus diligente expose sa demande par écrit et les parties disposent de trente jours pour y répondre et se
+    rapprocher.
+  </p>
+  <p>
+    À défaut d’accord amiable, le litige est porté devant la juridiction compétente selon les <strong>règles de compétence
+    de droit commun</strong>.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Pour toute question sur les présentes conditions&#8239;: <a href={`mailto:${site.email}`}>{site.email}</a> ou <a href={`tel:${site.phoneHref}`}>{site.phone}</a>.
+  </p>
 </PageLayout>

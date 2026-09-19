@@ -67,9 +67,29 @@ export const maintenance = {
     'Correction des bugs sur ce qui a été livré',
     'Maintenance technique',
     'Support en cas de problème',
-    'Petits ajustements simples',
+    'Petits ajustements simples, encadrés au devis',
     'Vérification régulière du système',
   ],
+  // Le volume des « petits ajustements » est borné par les CGV (art. 17) et par le devis.
+  horsPerimetre:
+    'Les nouvelles fonctionnalités, les changements importants de processus et les migrations font l’objet d’un devis séparé.',
 };
 
-export const hebergement = 'L’hébergement est directement à votre nom.';
+// Propriété : formulation alignée sur les CGV (comptes au nom du client ou remis à la livraison,
+// cession des livrables spécifiques après paiement intégral).
+export const hebergement =
+  'Les comptes nécessaires au fonctionnement sont créés à votre nom ou vous sont remis à la livraison.';
+
+// Abonnement technique : distinct de la maintenance, il couvre le fonctionnement et l'hébergement
+// de l'interface. Son existence doit être visible sur le site ; son prix reste au devis.
+export const abonnementTechnique = {
+  titre: 'L’abonnement technique',
+  role: 'Il couvre le fonctionnement et l’hébergement de votre interface. Il est distinct de la maintenance.',
+  points: [
+    'Nécessaire pour que votre interface reste en ligne',
+    'Sans engagement, résiliable à tout moment',
+    'Effet à la fin de la période mensuelle déjà payée',
+  ],
+  siArret:
+    'Si vous l’arrêtez, vous conservez vos comptes et votre solution. Il vous revient alors de reprendre directement à votre charge les abonnements et services nécessaires : sans cette reprise, le maintien en ligne n’est pas garanti.',
+};

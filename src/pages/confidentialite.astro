@@ -1,44 +1,102 @@
 ---
+// Politique de confidentialité — VISITEURS DU SITE UNIQUEMENT.
+// Les traitements réalisés pour le compte des clients (données métiers dans leurs outils) relèvent des CGV
+// et de l'annexe de sous-traitance (docs/juridique/annexe-rgpd-sous-traitance.md), pas de cette page.
+//
+// Durées de conservation et bases légales retenues : à confirmer avec un juriste.
+// Transferts hors UE vérifiés le 19 septembre 2026 sur les documents officiels des prestataires
+// (Vercel : clauses contractuelles types et certification EU-U.S. Data Privacy Framework ;
+//  Cal.com : clauses contractuelles types ou mécanisme d'adéquation type EU-US DPF).
 import PageLayout from '../layouts/PageLayout.astro';
 import { site } from '../data/site';
 ---
 
 <PageLayout
   title="Politique de confidentialité | Lyzario"
-  description="Comment Lyzario utilise les données transmises par email ou lors d’une prise de rendez-vous, et comment exercer vos droits."
+  description="Comment Lyzario utilise les données transmises par email ou lors d’une prise de rendez-vous sur lyzario.fr, et comment exercer vos droits."
   label="Informations"
   h1="Politique de confidentialité"
-  miseAJour="17 septembre 2026"
+  intro="Cette politique concerne les visiteurs du site lyzario.fr."
+  miseAJour="19 septembre 2026"
 >
   <h2>Responsable du traitement</h2>
+  <address>
+    <strong>{site.legalName}</strong>, exerçant sous le nom commercial {site.name}<br />
+    {site.address.postalCode} {site.address.locality}, France<br />
+    Téléphone&#8239;: <a href={`tel:${site.phoneHref}`}>{site.phone}</a><br />
+    Email&#8239;: <a href={`mailto:${site.email}`}>{site.email}</a>
+  </address>
+
+  <h2>Ce que cette politique ne couvre pas</h2>
   <p>
-    {site.founder} ({site.name}), {site.address.postalCode} {site.address.locality}. Contact&#8239;: <a href={`mailto:${site.email}`}>{site.email}</a>.
+    Les données traitées dans le cadre des prestations, <strong>pour le compte de clients professionnels</strong>, ne
+    relèvent pas de la présente politique. Dans ce cadre, le client est responsable de traitement et Lyzario agit en
+    qualité de sous-traitant&#8239;: ces traitements sont régis par le contrat et son annexe de sous-traitance, dans les
+    conditions prévues par les <a href="/cgv">conditions générales de vente</a>.
   </p>
 
-  <h2>Données collectées</h2>
+  <h2>Données collectées, finalités et bases légales</h2>
   <p>Ce site ne comporte pas de formulaire. Des données vous concernant peuvent être recueillies dans deux cas&#8239;:</p>
   <ul>
-    <li>quand vous m’écrivez par email&#8239;: les informations contenues dans votre message&#8239;;</li>
     <li>
-      quand vous réservez un rendez-vous&#8239;: la prise de rendez-vous se fait sur Cal.com, un service tiers. Les informations que vous y saisissez sont traitées selon la <a href="https://cal.com/privacy" rel="noopener">politique de confidentialité de Cal.com</a>.
+      <strong>Quand vous m’écrivez par email</strong>&#8239;: les informations contenues dans votre message (nom, adresse
+      email, contenu, et tout élément que vous choisissez de transmettre). Finalité&#8239;: répondre à votre demande et,
+      le cas échéant, gérer la relation commerciale. Base légale&#8239;: exécution de mesures précontractuelles ou
+      intérêt légitime à répondre aux sollicitations reçues.
+    </li>
+    <li>
+      <strong>Quand vous réservez un rendez-vous</strong>&#8239;: la prise de rendez-vous se fait sur Cal.com, service
+      tiers agissant comme sous-traitant. Finalité&#8239;: organiser l’échange demandé. Base légale&#8239;: exécution de
+      mesures précontractuelles prises à votre demande. Les informations que vous y saisissez sont également traitées
+      selon la <a href="https://cal.com/privacy" rel="noopener">politique de confidentialité de Cal.com</a>.
     </li>
   </ul>
+  <p>Ces données ne sont ni vendues, ni cédées à des tiers, et ne font l’objet d’aucune décision automatisée.</p>
 
-  <h2>Utilisation</h2>
+  <h2>Durées de conservation</h2>
+  <ul>
+    <li>Échanges sans suite commerciale&#8239;: trois ans à compter du dernier contact de votre part.</li>
+    <li>Rendez-vous et échanges liés à un projet&#8239;: pendant la durée de la relation, puis selon les durées ci-dessous.</li>
+    <li>Documents contractuels et pièces comptables&#8239;: pendant la durée légale de conservation qui leur est applicable.</li>
+    <li>Journaux techniques de l’hébergeur&#8239;: selon la durée appliquée par ce prestataire.</li>
+  </ul>
+
+  <h2>Destinataires et sous-traitants</h2>
+  <ul>
+    <li><strong>Cal.com, Inc.</strong> (États-Unis)&#8239;: prise de rendez-vous.</li>
+    <li><strong>Vercel Inc.</strong> (États-Unis)&#8239;: hébergement du site et journaux techniques de connexion.</li>
+    <li>Le fournisseur de messagerie utilisé pour recevoir et conserver les emails.</li>
+  </ul>
+  <p>Aucun autre destinataire n’a accès à ces données.</p>
+
+  <h2>Transferts hors de l’Union européenne</h2>
   <p>
-    Ces données servent uniquement à répondre à vos demandes et à gérer la relation commerciale. Elles ne sont pas cédées à des tiers.
+    Les prestataires mentionnés ci-dessus sont établis aux États-Unis&#8239;: vos données peuvent donc faire l’objet
+    d’un transfert hors de l’Union européenne. Ces transferts sont encadrés par les mécanismes prévus au chapitre V du
+    règlement général sur la protection des données&#8239;: clauses contractuelles types de la Commission européenne
+    et, pour Vercel, certification au titre du cadre de protection des données UE&#8211;États-Unis
+    (<span lang="en">EU&#8211;U.S. Data Privacy Framework</span>).
   </p>
 
   <h2>Cookies et mesure d’audience</h2>
-  <p>Ce site ne dépose aucun cookie publicitaire ni de mesure d’audience.</p>
-
-  <h2>Hébergement</h2>
   <p>
-    Le site est hébergé par Vercel Inc. (États-Unis), qui peut enregistrer des données techniques de connexion nécessaires au fonctionnement et à la sécurité du service.
+    Ce site ne dépose aucun cookie publicitaire ni de mesure d’audience. Les polices de caractères sont servies depuis
+    le site lui-même, sans appel à un service tiers. L’hébergeur peut enregistrer des données techniques de connexion
+    nécessaires au fonctionnement et à la sécurité du service.
+  </p>
+
+  <h2>Sécurité</h2>
+  <p>
+    Le site est servi exclusivement en HTTPS. Les accès aux outils utilisés pour traiter vos demandes sont protégés et
+    limités à {site.founder}.
   </p>
 
   <h2>Vos droits</h2>
   <p>
-    Vous disposez d’un droit d’accès, de rectification, d’effacement et d’opposition sur vos données. Pour l’exercer, écrivez à <a href={`mailto:${site.email}`}>{site.email}</a>. Vous pouvez aussi adresser une réclamation à la <a href="https://www.cnil.fr" rel="noopener">CNIL</a>.
+    Vous disposez d’un droit d’accès, de rectification, d’effacement, de limitation du traitement, d’opposition et de
+    portabilité de vos données. Pour les exercer, écrivez à <a href={`mailto:${site.email}`}>{site.email}</a>.
+  </p>
+  <p>
+    Vous pouvez également adresser une réclamation à la <a href="https://www.cnil.fr" rel="noopener">CNIL</a>.
   </p>
 </PageLayout>

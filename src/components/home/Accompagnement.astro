@@ -2,7 +2,7 @@
 // « Ce que comprend l'accompagnement » : livrables sans tarif.
 // Le périmètre et la proposition commerciale sont établis après l'audit offert.
 import { site } from '../../data/site';
-import { miseEnPlace, maintenance, hebergement, propositionApresAudit } from '../../data/offre';
+import { miseEnPlace, maintenance, hebergement, abonnementTechnique, propositionApresAudit } from '../../data/offre';
 const { theme = 'dark', separee = false } = Astro.props as { theme?: 'dark' | 'light'; separee?: boolean };
 ---
 
@@ -62,20 +62,34 @@ const { theme = 'dark', separee = false } = Astro.props as { theme?: 'dark' | 'l
         </details>
 
         <p class="carte-note">
-          Vous pouvez arrêter quand vous voulez&#8239;: votre outil continue de fonctionner.
+          Vous pouvez arrêter quand vous voulez&#8239;: votre outil continue de fonctionner. L’abonnement technique, lui, reste nécessaire pour que votre interface reste en ligne.
         </p>
       </article>
     </div>
+
+    <aside class="abonnement" aria-labelledby="abonnement-title">
+      <div class="abonnement-texte">
+        <h3 id="abonnement-title" class="display display-sm">{abonnementTechnique.titre}</h3>
+        <p class="abonnement-role">{abonnementTechnique.role}</p>
+        <p class="abonnement-arret">{abonnementTechnique.siArret}</p>
+      </div>
+      <ul class="sq-list abonnement-points">
+        {abonnementTechnique.points.map((point) => <li>{point}</li>)}
+      </ul>
+    </aside>
 
     <div class="propriete" aria-labelledby="propriete-title">
       <div class="propriete-texte">
         <h3 id="propriete-title" class="display display-md">Tout <em>vous appartient</em></h3>
         <p class="propriete-p">
-          Vous n’êtes pas dépendant de Lyzario. Si demain notre collaboration s’arrête, votre système continue de fonctionner&#8239;: je le construis chez vous, pas chez moi.
+          Vous n’êtes pas dépendant de Lyzario. Les comptes nécessaires au fonctionnement sont créés à votre nom, ou vous sont remis à la livraison&#8239;: je construis votre système chez vous, pas chez moi. Après paiement intégral, les éléments réalisés spécifiquement pour vous vous appartiennent.
+        </p>
+        <p class="propriete-p propriete-precision">
+          Si notre collaboration s’arrête, vous gardez la main sur votre solution&#8239;: il vous revient alors de reprendre à votre charge les abonnements techniques nécessaires à son fonctionnement.
         </p>
       </div>
       <ul role="list" class="propriete-grille">
-        {['Votre application', 'Vos données', 'Vos accès', 'Votre hébergement'].map((el) => (
+        {['Votre application', 'Vos données', 'Vos accès', 'Vos comptes'].map((el) => (
           <li class="propriete-case">
             <span class="propriete-sq" aria-hidden="true"></span>
             <span class="propriete-nom">{el}</span>
@@ -242,6 +256,38 @@ const { theme = 'dark', separee = false } = Astro.props as { theme?: 'dark' | 'l
     justify-self: start;
   }
 
+  .abonnement {
+    margin-top: var(--space-4);
+    padding: clamp(20px, 3vw, 32px);
+    display: grid;
+    gap: var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+
+  .abonnement-role {
+    margin-top: var(--space-2);
+    color: var(--fg-soft);
+  }
+
+  .abonnement-arret {
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+  }
+
+  .abonnement-points {
+    gap: var(--space-2);
+    align-content: start;
+  }
+
+  .propriete-precision {
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+  }
+
   .propriete {
     margin-top: clamp(40px, 5vw, 64px);
     padding-top: clamp(32px, 4vw, 48px);
@@ -317,6 +363,14 @@ const { theme = 'dark', separee = false } = Astro.props as { theme?: 'dark' | 'l
     .carte-liste {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       column-gap: var(--space-5);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .abonnement {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      column-gap: var(--space-6);
+      align-items: start;
     }
   }
 

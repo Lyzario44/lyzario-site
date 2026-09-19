@@ -1,6 +1,22 @@
 ---
+// Mentions légales — art. 1er-1 de la loi n° 2004-575 (LCEN), dans sa rédaction issue de la loi n° 2024-449
+// du 21 mai 2024 : pour un éditeur personne physique, nom, prénoms, domicile et numéro de téléphone ;
+// pour l'hébergeur, nom, adresse et numéro de téléphone.
+//
+// BLOQUANT — numéro de téléphone de l'hébergeur :
+// Vercel Inc. ne publie aucun numéro de téléphone dans ses documents officiels (pages Contact,
+// Terms of Service et Privacy Notice consultées le 19 septembre 2026). Aucun numéro issu d'un
+// annuaire non officiel n'est publié ici.
+// Seules les informations officielles vérifiées sont affichées : raison sociale, adresse postale
+// figurant dans les documents juridiques de Vercel, page de contact officielle et adresse
+// électronique officielle.
+// CETTE SOLUTION N'EST PAS RÉPUTÉE CONFORME à l'exigence de numéro de téléphone de l'art. 1er-1, I, 4°
+// de la LCEN : le numéro officiel reste à obtenir auprès de l'hébergeur, ou l'affichage retenu doit être
+// validé par un juriste. data-bloquant (invisible) empêche la fusion tant que ce point n'est pas tranché.
 import PageLayout from '../layouts/PageLayout.astro';
 import { site } from '../data/site';
+
+const telephoneHebergeurValide = false;
 ---
 
 <PageLayout
@@ -8,39 +24,66 @@ import { site } from '../data/site';
   description="Mentions légales du site lyzario.fr : éditeur, hébergeur, propriété intellectuelle et droit applicable."
   label="Informations"
   h1="Mentions légales"
-  miseAJour="17 septembre 2026"
+  miseAJour="19 septembre 2026"
 >
   <h2>Éditeur du site</h2>
   <p>Le site <strong>lyzario.fr</strong> est édité par&#8239;:</p>
   <address>
-    <strong>{site.founder}</strong> ({site.name})<br />
+    <strong>{site.legalName}</strong>, exerçant sous le nom commercial {site.name}<br />
+    {site.statut}<br />
     SIRET&#8239;: {site.siret}<br />
     {site.address.street}<br />
     {site.address.postalCode} {site.address.locality}, France<br />
-    Email&#8239;: <a href={`mailto:${site.email}`}>{site.email}</a>
+    Téléphone&#8239;: <a href={`tel:${site.phoneHref}`}>{site.phone}</a><br />
+    Email&#8239;: <a href={`mailto:${site.email}`}>{site.email}</a><br />
+    {site.tva}
   </address>
   <p>Directeur de la publication&#8239;: {site.founder}.</p>
 
-  <h2>Hébergement</h2>
-  <address>
+  <h2>Hébergement du site</h2>
+  <address
+    data-bloquant={telephoneHebergeurValide
+      ? undefined
+      : 'Mentions légales : numéro de téléphone officiel de l’hébergeur à obtenir ou affichage à faire valider (art. 1er-1, I, 4° LCEN)'}
+  >
     <strong>Vercel Inc.</strong><br />
     440 N Barranca Ave #4133<br />
     Covina, CA 91723, États-Unis<br />
-    <a href="https://vercel.com" rel="noopener">vercel.com</a>
+    Contact&#8239;: <a href="https://vercel.com/contact" rel="noopener">vercel.com/contact</a><br />
+    Protection des données&#8239;: <a href="mailto:privacy@vercel.com">privacy@vercel.com</a>
   </address>
+  <p>
+    L’hébergement du présent site est distinct de l’hébergement des solutions réalisées pour les clients&#8239;:
+    celles-ci reposent sur des comptes ouverts au nom du client ou qui lui sont remis, dans les conditions prévues
+    par les <a href="/cgv">conditions générales de vente</a>.
+  </p>
 
   <h2>Propriété intellectuelle</h2>
   <p>
-    L’ensemble du contenu de ce site (textes, images, graphismes, logo) est protégé par le droit d’auteur et le droit des marques. Toute reproduction ou utilisation sans autorisation préalable de {site.founder} est interdite.
+    Le contenu du présent site lyzario.fr (textes, images, graphismes, logo) est protégé par le droit d’auteur et le
+    droit des marques. Toute reproduction ou utilisation sans autorisation préalable de {site.founder} est interdite.
+  </p>
+  <p>
+    Cette réserve porte sur le site lui-même. Les droits relatifs aux livrables réalisés pour un client sont réglés
+    par les <a href="/cgv">conditions générales de vente</a> et par le devis.
   </p>
 
   <h2>Données personnelles</h2>
   <p>
-    La manière dont vos données sont utilisées est détaillée dans la <a href="/confidentialite">politique de confidentialité</a>.
+    La manière dont les données des visiteurs sont utilisées est détaillée dans
+    la <a href="/confidentialite">politique de confidentialité</a>. Les traitements réalisés pour le compte des
+    clients relèvent des <a href="/cgv">conditions générales de vente</a> et de leur annexe de sous-traitance.
+  </p>
+
+  <h2>Conditions de vente</h2>
+  <p>
+    Les prestations sont régies par les <a href="/cgv">conditions générales de vente</a>, réservées aux clients
+    professionnels.
   </p>
 
   <h2>Droit applicable</h2>
   <p>
-    Les présentes mentions sont régies par le droit français. En cas de litige, les tribunaux français sont seuls compétents.
+    Les présentes mentions sont régies par le droit français. En cas de litige, les parties recherchent une solution
+    amiable&#8239;; à défaut, la juridiction compétente est déterminée selon les règles de compétence de droit commun.
   </p>
 </PageLayout>

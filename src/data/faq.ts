@@ -1,6 +1,7 @@
 // Chaque réponse s'appuie uniquement sur l'offre PDF et les décisions validées.
 // Aucun tarif n'est publié (décision du 17/09/2026) : le périmètre et la proposition commerciale suivent l'audit.
 // Questions volontairement absentes tant que l'information n'est pas fournie : délais, zone d'intervention sur place.
+// L'abonnement technique et la maintenance sont présentés séparément : le premier conditionne le maintien en ligne.
 import { propositionApresAudit } from './offre';
 
 export const faq = [
@@ -29,9 +30,19 @@ export const faq = [
       'Pendant les 30 premiers jours, je stabilise le système. Ensuite, le suivi mensuel est facultatif et sans engagement.',
   },
   {
+    question: 'Quelle différence entre l’abonnement technique et la maintenance ?',
+    reponse:
+      'Ce sont deux choses distinctes. L’abonnement technique couvre le fonctionnement et l’hébergement de votre interface : il est nécessaire pour qu’elle reste en ligne. La maintenance, elle, est facultative : elle sert à surveiller, corriger et ajuster. Les deux sont sans engagement et leur prix figure dans votre devis.',
+  },
+  {
     question: 'Si j’arrête la maintenance, mon outil continue-t-il de fonctionner ?',
     reponse:
-      'Oui. Le système fonctionne sans moi. Le suivi mensuel sert à surveiller, corriger et ajuster, mais vous pouvez l’arrêter quand vous voulez.',
+      'Oui. Le suivi mensuel sert à surveiller, corriger et ajuster, mais vous pouvez l’arrêter quand vous voulez : votre outil continue de fonctionner.',
+  },
+  {
+    question: 'Et si j’arrête l’abonnement technique ?',
+    reponse:
+      'Vous conservez vos comptes, vos données et votre solution. Il vous revient alors de reprendre directement à votre charge les abonnements et services nécessaires à son fonctionnement. Sans cette reprise, le maintien en ligne n’est pas garanti. La résiliation prend effet à la fin de la période mensuelle déjà payée.',
   },
   {
     question: 'Faut-il changer tous nos outils ?',
@@ -41,7 +52,7 @@ export const faq = [
   {
     question: 'À qui appartiennent l’outil et les données ?',
     reponse:
-      'À vous : l’application, les données, les accès et l’hébergement, qui est directement à votre nom. Je construis votre système chez vous, pas chez moi. Si notre collaboration s’arrête, tout continue de fonctionner.',
+      'À vous. Les comptes nécessaires au fonctionnement sont créés à votre nom ou vous sont remis à la livraison : application, données, accès, projet WeWeb, base de données. Les éléments réalisés spécifiquement pour vous vous sont acquis après paiement intégral. Je conserve en revanche mes méthodes et mes composants génériques réutilisables, et les plateformes utilisées restent soumises à leurs propres licences.',
   },
   {
     question: 'Les évolutions sont-elles comprises dans la maintenance ?',
