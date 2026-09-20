@@ -1,0 +1,186 @@
+---
+// Bandeau de logos clients, en bas du hero, juste sous la ligne de preuve.
+//
+// Défilement : une piste contenant SERIES séries identiques, animée de 0 à -100/SERIES %.
+// Au terme de l'animation, la série n° 2 occupe exactement la place de la n° 1 : la boucle
+// est invisible. Pour qu'aucun vide n'apparaisse à droite, il faut que les séries restantes
+// couvrent toujours la largeur visible, soit (SERIES - 1) × largeur d'une série ≥ largeur du
+// bandeau. Avec quatre séries d'environ 680 px, la marge est confortable jusqu'aux très
+// grands écrans (le conteneur est plafonné à 1200 px).
+//
+// Les duplications sont purement techniques : masquées aux lecteurs d'écran (aria-hidden)
+// et retirées quand l'animation est désactivée.
+//
+// Pas de JavaScript : pause au survol et au focus, arrêt sous prefers-reduced-motion,
+// tout est géré en CSS.
+import { Image } from 'astro:assets';
+import { logosClients } from '../../data/logos-clients';
+
+const SERIES = 4;
+const doublons = SERIES - 1;
+// Décalage final de l'animation : exactement la largeur d'une série.
+const decalage = `-${(100 / SERIES).toFixed(4)}%`;
+---
+
+<section class="clients" aria-labelledby="clients-titre">
+  <p class="label clients-intro" id="clients-titre">Ils m’ont fait confiance</p>
+
+  <!-- tabindex : rend le bandeau atteignable au clavier pour pouvoir mettre l'animation en pause -->
+  <div class="clients-vue" tabindex="0">
+    <div class="clients-piste" style={`--decalage: ${decalage}`}>
+      <ul class="clients-serie" role="list">
+        {
+          logosClients.map((logo) => (
+            <li>
+              <Image
+                src={logo.image}
+                alt={logo.nom}
+                loading="lazy"
+                decoding="async"
+                style={`--logo-h: ${logo.hauteur}px`}
+              />
+            </li>
+          ))
+        }
+      </ul>
+      {
+        Array.from({ length: doublons }, () => (
+          <ul class="clients-serie clients-doublon" role="list" aria-hidden="true">
+            {logosClients.map((logo) => (
+              <li>
+                <Image
+                  src={logo.image}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  style={`--logo-h: ${logo.hauteur}px`}
+                />
+              </li>
+            ))}
+          </ul>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .clients {
+    grid-column: 1 / -1;
+    /* Pas de marge haute : l'écart de la grille du hero (--space-7) suffit à isoler le bandeau
+       de la ligne de preuve, et le hero ne gagne ainsi que la hauteur utile du bandeau. */
+    /* Indispensable : sans min-width, la piste en max-content élargirait la colonne
+       de la grille du hero et provoquerait un débordement horizontal de la page. */
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .clients-intro {
+    color: var(--fg-muted);
+  }
+
+  .clients-vue {
+    margin-top: var(--space-4);
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    /* Fondu aux deux extrémités : les logos entrent et sortent sans coupure nette */
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+  }
+
+  .clients-vue:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+
+  .clients-piste {
+    display: flex;
+    width: max-content;
+    animation: defile-logos 50s linear infinite;
+  }
+
+  /* Pause au survol et au focus clavier (WCAG 2.2.2) */
+  .clients-vue:hover .clients-piste,
+  .clients-vue:focus-within .clients-piste {
+    animation-play-state: paused;
+  }
+
+  .clients-serie {
+    display: flex;
+    align-items: center;
+    gap: var(--logos-gap);
+    /* Même valeur que l'écart interne : les deux séries ont exactement la même largeur */
+    padding-right: var(--logos-gap);
+  }
+
+  .clients-serie li {
+    display: flex;
+    align-items: center;
+  }
+
+  .clients-serie :global(img) {
+    height: var(--logo-h);
+    width: auto;
+    opacity: 0.7;
+    transition: opacity var(--dur) var(--ease);
+  }
+
+  .clients-serie li:hover :global(img) {
+    opacity: 1;
+  }
+
+  @keyframes defile-logos {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      /* --decalage vaut -100 % / nombre de séries : exactement la largeur d'une série */
+      transform: translateX(var(--decalage));
+    }
+  }
+
+  .clients {
+    --logos-gap: 72px;
+  }
+
+  @media (max-width: 1023px) {
+    .clients {
+      --logos-gap: 56px;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .clients {
+      --logos-gap: 40px;
+    }
+
+    /* Mobile : mouvement ralenti pour que chaque logo reste identifiable */
+    .clients-piste {
+      animation-duration: 80s;
+    }
+
+    .clients-serie :global(img) {
+      /* Hauteur légèrement réduite, sans descendre sous le seuil de lisibilité */
+      height: calc(var(--logo-h) * 0.85);
+    }
+  }
+
+  /* Mouvement réduit : plus d'animation, la série unique reste explorable au doigt ou au clavier */
+  @media (prefers-reduced-motion: reduce) {
+    .clients-piste {
+      animation: none;
+    }
+
+    .clients-vue {
+      overflow-x: auto;
+      /* Sans défilement, le fondu latéral masquerait en permanence le premier logo */
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+
+    .clients-doublon {
+      display: none;
+    }
+  }
+</style>
